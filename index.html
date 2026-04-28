@@ -27,9 +27,9 @@
 
         body {
             font-family: 'Merriweather', serif;
-            background-color: #f0e6d3;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            color: #333;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 40%, #2d1b4e 70%, #1a0a2e 100%);
+            background-attachment: fixed;
+            color: #e0e0e0;
             min-height: 100vh;
             line-height: 1.7;
         }
@@ -133,47 +133,55 @@
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             opacity: 0;
-            animation: headerFloatUp 8s ease-out forwards;
+            animation: headerFloatUp 10s ease-out forwards;
             white-space: nowrap;
             pointer-events: none;
             bottom: 0;
+            text-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
 
         .header-floating-title.down {
             animation-name: headerFloatDown;
+            animation-duration: 10s;
         }
 
         @keyframes headerFloatUp {
             0% {
                 opacity: 0;
-                transform: translateY(50px) rotate(var(--rotation));
+                transform: translateY(40px) translateX(0px) rotate(var(--rotation));
             }
-            10% {
-                opacity: 0.35;
+            8% {
+                opacity: 0.3;
             }
-            90% {
-                opacity: 0.35;
+            50% {
+                transform: translateY(-60px) translateX(var(--drift)) rotate(var(--rotation));
+            }
+            92% {
+                opacity: 0.3;
             }
             100% {
                 opacity: 0;
-                transform: translateY(-150px) rotate(var(--rotation));
+                transform: translateY(-130px) translateX(calc(var(--drift) * 1.2)) rotate(var(--rotation));
             }
         }
 
         @keyframes headerFloatDown {
             0% {
                 opacity: 0;
-                transform: translateY(-50px) rotate(var(--rotation));
+                transform: translateY(-40px) translateX(0px) rotate(var(--rotation));
             }
-            10% {
-                opacity: 0.35;
+            8% {
+                opacity: 0.3;
             }
-            90% {
-                opacity: 0.35;
+            50% {
+                transform: translateY(60px) translateX(var(--drift)) rotate(var(--rotation));
+            }
+            92% {
+                opacity: 0.3;
             }
             100% {
                 opacity: 0;
-                transform: translateY(150px) rotate(var(--rotation));
+                transform: translateY(130px) translateX(calc(var(--drift) * 1.2)) rotate(var(--rotation));
             }
         }
 
@@ -193,68 +201,81 @@
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             opacity: 0;
-            animation: floatUp 10s ease-out forwards;
+            animation: floatUp 12s ease-out forwards;
             white-space: nowrap;
             pointer-events: none;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            filter: blur(0.3px);
         }
 
         .floating-title.down {
             animation-name: floatDown;
-        }
-
-        .second-row-title {
-            position: fixed;
-            top: 22%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            font-size: 2rem;
-            opacity: 0.2;
-            color: var(--coral);
-            pointer-events: none;
-            z-index: 0;
-            animation: gentleFloat 5s ease-in-out infinite;
-            white-space: nowrap;
-        }
-
-        @keyframes gentleFloat {
-            0%, 100% { transform: translate(-50%, 0) rotate(-1deg); }
-            50% { transform: translate(-50%, -5px) rotate(1deg); }
+            animation-duration: 12s;
         }
 
         @keyframes floatUp {
             0% {
                 opacity: 0;
-                transform: translateY(100px) rotate(var(--rotation));
+                transform: translateY(80px) translateX(0px) rotate(var(--rotation));
             }
-            10% {
+            8% {
                 opacity: var(--max-opacity);
             }
-            90% {
+            50% {
+                transform: translateY(-100px) translateX(var(--drift)) rotate(var(--rotation));
+            }
+            92% {
                 opacity: var(--max-opacity);
             }
             100% {
                 opacity: 0;
-                transform: translateY(-200px) rotate(var(--rotation));
+                transform: translateY(-180px) translateX(calc(var(--drift) * 1.5)) rotate(var(--rotation));
             }
         }
 
         @keyframes floatDown {
             0% {
                 opacity: 0;
-                transform: translateY(-100px) rotate(var(--rotation));
+                transform: translateY(-80px) translateX(0px) rotate(var(--rotation));
             }
-            10% {
+            8% {
                 opacity: var(--max-opacity);
             }
-            90% {
+            50% {
+                transform: translateY(100px) translateX(var(--drift)) rotate(var(--rotation));
+            }
+            92% {
                 opacity: var(--max-opacity);
             }
             100% {
                 opacity: 0;
-                transform: translateY(200px) rotate(var(--rotation));
+                transform: translateY(180px) translateX(calc(var(--drift) * 1.5)) rotate(var(--rotation));
             }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.3);
+            animation: starFade var(--duration) ease-out forwards;
+        }
+
+        @keyframes starFade {
+            0% { opacity: 0; transform: scale(0.5); }
+            15% { opacity: 1; transform: scale(1); }
+            85% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
         }
 
         h1 {
@@ -286,9 +307,11 @@
             gap: 20px;
             margin-bottom: 40px;
             padding: 30px;
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
         }
 
         .search-box {
@@ -296,53 +319,109 @@
             min-width: 280px;
             max-width: 400px;
             position: relative;
+            display: flex;
+            align-items: center;
         }
 
         .search-box input {
             width: 100%;
-            padding: 14px 20px;
-            font-family: 'Merriweather', serif;
-            font-size: 1rem;
-            border: 2px solid #e8e2dc;
-            border-radius: 10px;
+            padding: 16px 24px 16px 50px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0;
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            background: transparent;
+            color: white;
+            caret-color: transparent;
         }
 
         .search-box input:focus {
-            border-color: var(--lavender);
-            box-shadow: 0 0 0 4px rgba(170, 150, 218, 0.2);
+            border-bottom-color: rgba(170, 150, 218, 0.8);
         }
 
         .search-box input::placeholder {
-            color: #999;
+            color: rgba(255, 255, 255, 0.35);
+            font-style: italic;
         }
+
+        .search-box::before {
+            content: '>';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: rgba(170, 150, 218, 0.7);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .typewriter-cursor {
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid rgba(170, 150, 218, 0.9);
+            transition: left 0.05s linear;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .typewriter-cursor.typing {
+            animation: cursorBlink 0.6s infinite;
+        }
+
+        .typewriter-cursor.inactive {
+            opacity: 0.3;
+        }
+
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; border-top-color: rgba(170, 150, 218, 1); }
+            51%, 100% { opacity: 0.3; border-top-color: rgba(170, 150, 218, 0.5); }
+        }
+
+        .search-box input.typing {
+            border-bottom-color: rgba(170, 150, 218, 0.5);
+        }
+
+        
 
         .lang-selector {
             display: flex;
             gap: 0;
-            border-radius: 10px;
+            border-radius: 25px;
             overflow: hidden;
-            border: 2px solid #e8e2dc;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .lang-selector button {
             padding: 14px 20px;
             font-family: 'Merriweather', serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border: none;
-            background: white;
-            color: #666;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .lang-selector button:not(:last-child) {
-            border-right: 1px solid #e8e2dc;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .lang-selector button:hover {
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
         }
 
@@ -351,61 +430,80 @@
             color: white;
         }
 
-        .refresh-btn {
-            padding: 14px 28px;
-            font-family: 'Merriweather', serif;
-            font-size: 1rem;
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
+        .book-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .book-list-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .refresh-books-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.7);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            justify-content: center;
         }
 
-        .refresh-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .refresh-btn svg {
-            transition: transform 0.5s ease;
-        }
-
-        .refresh-btn:hover svg {
+        .refresh-books-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             transform: rotate(180deg);
+            border-color: rgba(170, 150, 218, 0.6);
+        }
+
+        .refresh-books-btn:active {
+            transform: rotate(360deg) scale(0.9);
         }
 
         .book-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
             justify-content: center;
+            gap: 10px;
             margin-bottom: 30px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
         .book-tag {
             padding: 8px 16px;
-            background: white;
-            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 25px;
             font-size: 0.85rem;
-            color: #666;
+            color: rgba(255, 255, 255, 0.75);
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .book-tag:nth-child(6n+1):hover { border-color: var(--coral); background: var(--coral); color: white; }
-        .book-tag:nth-child(6n+2):hover { border-color: var(--teal); background: var(--teal); color: white; }
-        .book-tag:nth-child(6n+3):hover { border-color: var(--yellow); background: var(--yellow); color: #333; }
-        .book-tag:nth-child(6n+4):hover { border-color: var(--mint); background: var(--mint); color: #333; }
-        .book-tag:nth-child(6n+5):hover { border-color: var(--salmon); background: var(--salmon); color: white; }
-        .book-tag:nth-child(6n+6):hover { border-color: var(--lavender); background: var(--lavender); color: white; }
+        .book-tag:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .book-tag:nth-child(6n+1):hover { border-color: var(--coral); background: rgba(255, 107, 107, 0.25); color: white; }
+        .book-tag:nth-child(6n+2):hover { border-color: var(--teal); background: rgba(78, 205, 196, 0.25); color: white; }
+        .book-tag:nth-child(6n+3):hover { border-color: var(--yellow); background: rgba(254, 202, 87, 0.25); color: #333; }
+        .book-tag:nth-child(6n+4):hover { border-color: var(--mint); background: rgba(149, 225, 211, 0.25); color: #333; }
+        .book-tag:nth-child(6n+5):hover { border-color: var(--salmon); background: rgba(255, 159, 128, 0.25); color: white; }
+        .book-tag:nth-child(6n+6):hover { border-color: var(--lavender); background: rgba(170, 150, 218, 0.25); color: white; }
 
         .quotes-grid {
             display: grid;
@@ -419,8 +517,49 @@
             }
         }
 
+        .book-intro {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .book-intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .book-intro h2::before {
+            content: '📖';
+        }
+
+        .book-intro p {
+            font-family: 'Merriweather', serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .book-intro .author-line {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: normal;
+        }
+
         .quote-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             padding: 30px;
             border-left: 6px solid;
@@ -440,7 +579,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -480,7 +619,7 @@
             font-family: 'Merriweather', serif;
             font-size: 1.05rem;
             font-style: italic;
-            color: #333;
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 20px;
             line-height: 1.8;
             position: relative;
@@ -510,19 +649,19 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 15px;
-            border-top: 1px solid #f0ebe5;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .quote-book {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
-            color: #2c2c2c;
+            color: rgba(255, 255, 255, 0.9);
             font-size: 0.95rem;
         }
 
         .quote-author {
             font-size: 0.85rem;
-            color: #888;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .click-hint {
@@ -535,6 +674,12 @@
 
         .quote-card:hover .click-hint {
             opacity: 1;
+        }
+
+        #quotesContainer {
+            position: relative;
+            min-height: 500px;
+            padding: 80px 20px 20px 20px;
         }
 
         .loading {
@@ -558,25 +703,58 @@
 
         .loading p {
             font-style: italic;
-            color: #888;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .load-more-container {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .load-more-btn {
+            padding: 14px 30px;
+            font-family: 'Merriweather', serif;
+            font-size: 0.95rem;
+            border: 1px solid rgba(170, 150, 218, 0.5);
+            border-radius: 30px;
+            background: rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .load-more-btn:hover {
+            background: rgba(102, 126, 234, 0.4);
+            border-color: rgba(170, 150, 218, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .load-more-btn:active {
+            transform: scale(0.98);
         }
 
         .error {
             text-align: center;
             padding: 60px 20px;
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
             border-radius: 16px;
         }
 
         .error h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
-            color: #2c2c2c;
+            color: white;
             margin-bottom: 10px;
         }
 
         .error p {
-            color: #888;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .no-results {
@@ -587,12 +765,12 @@
         .no-results h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
-            color: #2c2c2c;
+            color: white;
             margin-bottom: 10px;
         }
 
         .no-results p {
-            color: #888;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         footer {
@@ -820,13 +998,14 @@
         }
 
         .postcard-btn.close {
-            background: white;
-            color: #333;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .postcard-btn.close:hover {
-            background: #f5f5f5;
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
         }
 
@@ -856,6 +1035,7 @@
 </head>
 <body>
     <div class="floating-titles" id="floatingTitles"></div>
+    <div class="stars" id="stars"></div>
     <div class="container">
         <header>
             <div class="header-floating-titles" id="headerFloatingTitles"></div>
@@ -869,29 +1049,36 @@
         <div class="controls">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Search by book title...">
+                <span class="typewriter-cursor"></span>
             </div>
+            
             <div class="lang-selector">
                 <button data-lang="cn" onclick="setLanguage('cn')">中文</button>
                 <button data-lang="en" class="active" onclick="setLanguage('en')">English</button>
                 <button data-lang="fr" onclick="setLanguage('fr')">Français</button>
             </div>
-            <button class="refresh-btn" onclick="refreshQuotes()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        </div>
+
+        <div class="book-list-header">
+            <h3>Books</h3>
+            <button class="refresh-books-btn" onclick="refreshBookList()" title="Refresh book list">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path d="M23 4v6h-6M1 20v-6h6"/>
                     <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
                 </svg>
-                New Quotes
             </button>
         </div>
-
         <div class="book-list" id="bookList"></div>
-
-        <div class="second-row-title">Don Quixote</div>
-
+        
         <div id="quotesContainer">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Loading quotes...</p>
+            <div class="quotes-grid"></div>
+            <div class="load-more-container" id="loadMoreContainer">
+                <button class="load-more-btn" onclick="loadMoreQuotes()">
+                    <span class="load-more-text">Load more quotes</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M19 12l-7 7-7-7"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
@@ -2606,6 +2793,415 @@
                         "Tout ce que nous voyons n'est qu'un rêve dans un rêve."
                     ]
                 }
+            },
+            "The Sun Also Rises": {
+                author: "Ernest Hemingway",
+                quotes: {
+                    cn: [
+                        "世上只有一个译法，就是你自己的心灵。",
+                        "我之所以爱你，是因为我们都是孤独的。",
+                        "永远别向后看。",
+                        "一个人可以被毁灭，但不能被打败。",
+                        "生活总是让我们遍体鳞伤，但到后来，那些受伤的地方一定会变成我们最强壮的地方。",
+                        "我不在乎这世界。我只在乎你。",
+                        "死亡是最容易的事，活着才是最难的选择。",
+                        "每个人的生命中都有些年份是特别的。",
+                        "当你初次踏上一个地方时，最好别太在意它。",
+                        "所有的懦弱都出自于没有爱或爱得不够。"
+                    ],
+                    en: [
+                        "One way to get the most out of life is to view it as an adventure.",
+                        "I was a little frightened of him and I did not want to show it.",
+                        "Never go on trips with anyone you do not love.",
+                        "The only way to get the most out of life is to find your own truth.",
+                        "There is nothing noble in being superior to your fellow man.",
+                        "The world breaks everyone, and afterward, many are strong at the broken places.",
+                        "I have lived through the most terrible years of the war.",
+                        "Each day was trying to be better than the last.",
+                        "No one can be truly careless with another person's heart.",
+                        "I would stand and wait for it in the snow."
+                    ],
+                    fr: [
+                        "Il n'y a qu'une seule façon de tirer le meilleur parti de la vie.",
+                        "J'avais un peu peur de lui et je ne voulais pas le montrer.",
+                        "Ne voyagez jamais avec quelqu'un que vous n'aimez pas.",
+                        "La seule façon de trouver la vérité est de la chercher soi-même.",
+                        "Le monde brise tout le monde, et après, beaucoup sont forts aux endroits brisés.",
+                        "J'ai vécu les années les plus terribles de la guerre.",
+                        "Chaque jour essayait d'être meilleur que le dernier.",
+                        "Personne ne peut être vraiment imprudent avec le cœur d'une autre personne.",
+                        "Je me tenais et attendais dans la neige.",
+                        "L'amour est une chose delicada."
+                    ]
+                }
+            },
+            "A Clockwork Orange": {
+                author: "Anthony Burgess",
+                quotes: {
+                    cn: [
+                        "彻底的自由意味着彻底的堕落。",
+                        "善良来自内心的深刻选择，而非外在的强制。",
+                        "人是会选择善恶的动物。",
+                        "没有选择的权利就不是真正的权利。",
+                        "暴力有时是一种爱的表达。",
+                        "音乐是最好的武器。",
+                        "我们可以选择我们是谁。",
+                        "每一个人的内心都有一片黑暗。",
+                        "真正的自由是能够选择不做什么。",
+                        "上帝的意旨是要我们成为某种人。"
+                    ],
+                    en: [
+                        "The attempt to impose moral catharsis through violence is a fallacy.",
+                        "Goodness is something to be chosen when we choose it.",
+                        "The attempt to artificially impose goodness is a perversion of morality.",
+                        "Choice is central to human dignity.",
+                        "Violence can be a form of love expression.",
+                        "Music has the power to transcend the violence in human nature.",
+                        "We have the power to choose who we become.",
+                        "There is a darkness inside every human heart.",
+                        "True freedom is being able to choose what not to do.",
+                        "God's will is for us to become certain kinds of people."
+                    ],
+                    fr: [
+                        "La bonté est quelque chose qu'on choisit quand on la choisit.",
+                        "La tentative d'imposer artificiellement la bonté est une perversion de la morale.",
+                        "Le choix est central pour la dignité humaine.",
+                        "La violence peut être une forme d'expression de l'amour.",
+                        "La musique a le pouvoir de transcender la violence de la nature humaine.",
+                        "Nous avons le pouvoir de choisir qui nous devenons.",
+                        "Il y a une obscurité dans chaque cœur humain.",
+                        "La vraie liberté est de pouvoir choisir ce qu'on ne fait pas.",
+                        "La volonté de Dieu est que nous devenions certains types de personnes."
+                    ]
+                }
+            },
+            "The Stranger": {
+                author: "Albert Camus",
+                quotes: {
+                    cn: [
+                        "今天妈妈死了。也许是昨天，我不确定。",
+                        "我们很少信任比我们好的人。",
+                        "人的一切不幸都源于他不懂得以安静的方式待在房间里。",
+                        "没有人能想象幸福，哪怕是在小说里。",
+                        "当我想认识一个新的人时，我总想知道他会死的时候在想什么。",
+                        "真正重要的东西，往往是最显而易见的。",
+                        "我反抗，所以我存在。",
+                        "生活是不公平的，但我们仍然可以创造公正。",
+                        "每一个伟大的行动都源于一种伟大的荒谬。",
+                        "自杀是承认生活不值得过下去。"
+                    ],
+                    en: [
+                        "Mother died today. Or maybe yesterday, I can't be sure.",
+                        "We rarely trust those who are better than us.",
+                        "All of man's unhappiness stems from his inability to sit quietly in a room alone.",
+                        "No one can imagine happiness, even in a novel.",
+                        "When I want to get to know a new person, I always wonder what they're thinking at death.",
+                        "The most important things are the most obvious.",
+                        "I rebel; therefore I exist.",
+                        "Life is unfair, but we can still create justice.",
+                        "Every great action begins with a great absurdity.",
+                        "Suicide is admitting that life is not worth living."
+                    ],
+                    fr: [
+                        "Maman est morte aujourd'hui. Ou peut-être hier, je ne sais pas.",
+                        "Nous avons rarement confiance en ceux qui sont meilleurs que nous.",
+                        "Tout le malheur des hommes vient de leur incapacité à rester assis tranquillement dans une chambre.",
+                        "Personne ne peut imaginer le bonheur, même dans un roman.",
+                        "Quand je veux connaître une nouvelle personne, je me demande toujours à quoi elle pense à la mort.",
+                        "Les choses les plus importantes sont les plus évidentes.",
+                        "Je me rebiffe; donc j'existe.",
+                        "La vie est injuste, mais nous pouvons toujours créer la justice.",
+                        "Toute grande action naît d'une grande absurdité.",
+                        "Le suicide c'est avouer que la vie ne vaut pas la peine d'être vécue."
+                    ]
+                }
+            },
+            "The Grapes of Wrath": {
+                author: "John Steinbeck",
+                quotes: {
+                    cn: [
+                        "人实在是走投无路了，才会产生愤怒。",
+                        "土地是我们唯一的母亲。",
+                        "你要是拿走了我的荣誉，我就什么都没有了。",
+                        "每一种东西都会移动，都会变化。",
+                        "我们活着的意义就是不让彼此孤独。",
+                        "一个人如果没有梦想，那他和咸鱼有什么区别。",
+                        "这个世界终将属于那些坚韧不拔的人。",
+                        "当饥饿来临时，愤怒也就来了。",
+                        "我会一直走到西部去。",
+                        "我们中间的有些人为了尊严而战，有些人为土地而战。"
+                    ],
+                    en: [
+                        "In the souls of the people, the grapes of wrath are filling and growing heavy.",
+                        "The land is our mother.",
+                        "Take away my honor and I have nothing left.",
+                        "Everything is in motion. Everything is changing.",
+                        "The meaning of life is to keep alive and not let others be alone.",
+                        "A man without dreams is no different from a dried fish.",
+                        "This world belongs to the resilient.",
+                        "Where there is hunger, anger will follow.",
+                        "I'll keep moving west.",
+                        "Some of us fight for dignity, some for the land."
+                    ],
+                    fr: [
+                        "Dans les âmes du peuple, les raisins de la colère grandissent et deviennent lourds.",
+                        "La terre est notre mère.",
+                        "Enlève-moi mon honneur et je n'ai plus rien.",
+                        "Tout est en mouvement. Tout change.",
+                        "Le sens de la vie est de rester en vie et de ne pas laisser les autres être seuls.",
+                        "Un homme sans rêves n'est pas différent d'un poisson séché.",
+                        "Ce monde appartient aux résilients.",
+                        "Là où il y a la faim, la colère suivra.",
+                        "Je continuerai à aller vers l'ouest.",
+                        "Certains d'entre nous combattent pour la dignité, d'autres pour la terre."
+                    ]
+                }
+            },
+            "Brave New World": {
+                author: "Aldous Huxley",
+                quotes: {
+                    cn: [
+                        "文明不需要高贵或勇气。",
+                        "在一个自由的社会里，人们可以按照自己的方式选择。",
+                        "我们的生活方式与我们拥有的东西分不开。",
+                        "真正的问题是如何在幸福与自由之间取得平衡。",
+                        "结束并不意味着开始，开始也不意味着结束。",
+                        "所有的幸福都依赖于对权力的控制。",
+                        "没有眼泪的安慰是空洞的。",
+                        "当你有了所有的答案时，问题就不存在了。",
+                        "我们的命运写在我们的基因里。",
+                        "最伟大的歌是那首关于无尽快乐的歌。"
+                    ],
+                    en: [
+                        "Community, Identity, Stability.",
+                        "Civilization has no need of nobility or courage.",
+                        "In a free society, individuals choose their own path.",
+                        "The real problem is how to balance happiness and freedom.",
+                        "Ending is not the same as beginning, and beginning is not the same as ending.",
+                        "All happiness depends on the control of power.",
+                        "Comfort without tears is hollow.",
+                        "When you have all the answers, the questions no longer exist.",
+                        "Our destiny is written in our genes.",
+                        "The greatest song is the one about endless joy."
+                    ],
+                    fr: [
+                        "Communauté, Identité, Stabilité.",
+                        "La civilisation n'a pas besoin de noblesse ni de courage.",
+                        "Dans une société libre, les individus choisissent leur propre chemin.",
+                        "Le vrai problème est comment équilibrer le bonheur et la liberté.",
+                        "Fin n'est pas la même que commencement, et commencement n'est pas la même que fin.",
+                        "Tout bonheur dépend du contrôle du pouvoir.",
+                        "Le confort sans larmes est vide.",
+                        "Quand vous avez toutes les réponses, les questions n'existent plus.",
+                        "Notre destin est écrit dans nos gènes.",
+                        "La plus grande chanson est celle de la joie infinie."
+                    ]
+                }
+            },
+            "The Handmaid's Tale": {
+                author: "Margaret Atwood",
+                quotes: {
+                    cn: [
+                        "正常是最无聊的。",
+                        "我不要你的故事，我要你的沉默。",
+                        "在基列共和国，没有什么是简单明了的。",
+                        "身体是神圣的。",
+                        "我们都有选择的自由，只是有些人忘记了。",
+                        "历史是由胜利者书写的。",
+                        "当一切都被禁止时，剩下的只有服从。",
+                        "希望是一种危险的东西。",
+                        "真相是我们的唯一武器。",
+                        "没有书的生活就像没有阳光的日子。"
+                    ],
+                    en: [
+                        "Normal is not something to aspire to, but something to escape from.",
+                        "I don't want your story, I want your silence.",
+                        "In Gilead, nothing is straightforward.",
+                        "The body is sacred.",
+                        "We all have freedom of choice, but some forget.",
+                        "History is written by the victors.",
+                        "When everything is forbidden, only obedience remains.",
+                        "Hope is a dangerous thing.",
+                        "Truth is our only weapon.",
+                        "A life without books is like a day without sun."
+                    ],
+                    fr: [
+                        "Le normal n'est pas quelque chose à aspirer, mais quelque chose à fuir.",
+                        "Je ne veux pas ton histoire, je veux ton silence.",
+                        "À Gilead, rien n'est simple.",
+                        "Le corps est sacré.",
+                        "Nous avons tous la liberté de choix, mais certains oublient.",
+                        "L'histoire est écrite par les vainqueurs.",
+                        "Quand tout est interdit, seule l'obéissance reste.",
+                        "L'espoir est une chose dangereuse.",
+                        "La vérité est notre seule arme.",
+                        "Une vie sans livres est comme un jour sans soleil."
+                    ]
+                }
+            },
+            "The Great Expectations": {
+                author: "Charles Dickens",
+                quotes: {
+                    cn: [
+                        "我父亲的墓碑是我见过的最感人的东西。",
+                        "一个人的价值不在于他有多少钱，而在于他是什么样的人。",
+                        "生活中最伟大的事情往往是最简单的。",
+                        "我从来不相信运气，我相信努力工作。",
+                        "如果你欠了银行一百英镑，你有麻烦；如果你欠了一百万英镑，银行有麻烦。",
+                        "别为我哭泣，我不值得。",
+                        "世界上最好的和最坏的事情往往发生在最普通的地方。",
+                        "真正的伟大来自于内心的善良。",
+                        "时间是最好的老师，也是最残忍的敌人。",
+                        "每个人的生活都是一部小说。"
+                    ],
+                    en: [
+                        "I father's gravestone was the most affecting thing I ever saw.",
+                        "The value of a man is not in what he has, but in what he is.",
+                        "The greatest things in life are often the simplest.",
+                        "I never believed in luck, I believed in hard work.",
+                        "If you owe the bank a hundred pounds, you have a problem; if you owe a million, the bank has a problem.",
+                        "Don't cry for me, I don't deserve it.",
+                        "The best and worst things in the world often happen in the most ordinary places.",
+                        "True greatness comes from inner kindness.",
+                        "Time is the best teacher and the cruelest enemy.",
+                        "Everyone's life is a novel."
+                    ],
+                    fr: [
+                        "La pierre tombale de mon père était la chose la plus touchante que j'aie jamais vue.",
+                        "La valeur d'un homme n'est pas dans ce qu'il a, mais dans ce qu'il est.",
+                        "Les plus grandes choses de la vie sont souvent les plus simples.",
+                        "Je n'ai jamais cru à la chance, j'ai cru au travail dur.",
+                        "Si vous devez à la banque cent livres, vous avez un problème; si vous devez un million, la banque a un problème.",
+                        "Ne pleure pas pour moi, je ne le mérite pas.",
+                        "Les meilleures et les pires choses du monde arrivent souvent dans les endroits les plus ordinaires.",
+                        "La vraie grandeur vient de la gentillesse intérieure.",
+                        "Le temps est le meilleur professeur et le plus cruel ennemi.",
+                        "La vie de chacun est un roman."
+                    ]
+                }
+            },
+            "Einstein's Dreams": {
+                author: "Alan Lightman",
+                quotes: {
+                    cn: [
+                        "时间是人们最不了解的东西。",
+                        "每一个梦境都是一个新的宇宙。",
+                        "如果时间可以倒流，我们会更加珍惜当下。",
+                        "爱因斯坦曾想象过无数个不同的世界。",
+                        "时间是相对的，但悲伤是绝对的。",
+                        "在某个世界里，一切都是永恒的。",
+                        "每一个梦都是一个关于时间的隐喻。",
+                        "时间是心灵的流动。",
+                        "如果时间可以停止，你最想停留在哪一刻？",
+                        "科学无法解释爱，也无法解释梦。"
+                    ],
+                    en: [
+                        "Time is the most mysterious thing we don't understand.",
+                        "Every dream is a new universe.",
+                        "If time could flow backward, we would treasure the present more.",
+                        "Einstein imagined countless different worlds.",
+                        "Time is relative, but grief is absolute.",
+                        "In some world, everything is eternal.",
+                        "Every dream is a metaphor about time.",
+                        "Time is the flow of the soul.",
+                        "If time could stop, what moment would you want to stay in?",
+                        "Science cannot explain love, nor can it explain dreams."
+                    ],
+                    fr: [
+                        "Le temps est la chose la plus mystérieuse que nous ne comprenons pas.",
+                        "Chaque rêve est un nouvel univers.",
+                        "Si le temps pouvait couler vers l'arrière, nous chéririons davantage le présent.",
+                        "Einstein a imaginé d'innombrables mondes différents.",
+                        "Le temps est relatif, mais le chagrin est absolu.",
+                        "Dans certains mondes, tout est éternel.",
+                        "Chaque rêve est une métaphore sur le temps.",
+                        "Le temps est le flux de l'âme.",
+                        "Si le temps pouvait s'arrêter, quel moment voudrais-tu rester?",
+                        "La science ne peut pas expliquer l'amour, ni les rêves."
+                    ]
+                }
+            },
+            "Norwegian Wood": {
+                author: "Haruki Murakami",
+                quotes: {
+                    cn: [
+                        "我曾经丢失了一个重要的东西，但我并不后悔。",
+                        "孤独的人并不可悲，可悲的是不知道自己孤独的人。",
+                        "记忆是比现实更真实的东西。",
+                        "每个人都有一个属于自己的森林。",
+                        "有些伤口永远不会愈合，但我们可以学会与它们共存。",
+                        "活着不是为了遇见谁，而是为了不迷失自己。",
+                        "我一直在等待什么，但从来不知道是什么。",
+                        "死亡不是终点，而是另一种开始。",
+                        "我们都在寻找某个地方，在那里我们可以真正做自己。",
+                        "时间是治疗一切创伤的良药，虽然我们都不愿意承认。"
+                    ],
+                    en: [
+                        "I lost something important once, but I don't regret it.",
+                        "Lonely people are not sad; the sad ones are those who don't know they're lonely.",
+                        "Memory is more real than reality.",
+                        "Everyone has their own forest.",
+                        "Some wounds never heal, but we can learn to live with them.",
+                        "We live not to meet someone, but to not lose ourselves.",
+                        "I've always been waiting for something, but never know what.",
+                        "Death is not the end, but another beginning.",
+                        "We're all looking for a place where we can truly be ourselves.",
+                        "Time is the best medicine for all wounds, though none of us want to admit it."
+                    ],
+                    fr: [
+                        "J'ai perdu quelque chose d'important une fois, mais je ne le regrette pas.",
+                        "Les personnes seules ne sont pas tristes; les tristes sont ceux qui ne savent pas qu'ils sont seuls.",
+                        "La mémoire est plus réelle que la réalité.",
+                        "Tout le monde a sa propre forêt.",
+                        "Certaines blessures ne guérissent jamais, mais nous pouvons apprendre à vivre avec.",
+                        "Nous ne vivions pas pour rencontrer quelqu'un, mais pour ne pas nous perdre.",
+                        "J'ai toujours attendu quelque chose, mais je ne sais jamais quoi.",
+                        "La mort n'est pas la fin, mais un autre commencement.",
+                        "Nous cherchons tous un endroit où nous pouvons vraiment être nous-mêmes.",
+                        "Le temps est le meilleur médicament pour toutes les blessures, bien que nous ne voulions pas l'admettre."
+                    ]
+                }
+            },
+            "The Secret Garden": {
+                author: "Frances Hodgson Burnett",
+                quotes: {
+                    cn: [
+                        "秘密花园是一个神奇的地方。",
+                        "每一个花园都藏着一个秘密。",
+                        "当我们开始照顾花园时，花园也在照顾我们。",
+                        "母亲总说，花园是世界上最快乐的地方。",
+                        "生命的力量总是在最不经意的时候出现。",
+                        "只要有爱和希望，没有什么是不可能的。",
+                        "我相信奇迹，我相信花园的魔法。",
+                        "当你把心交给大地，大地也会把心交给你。",
+                        "世界上最美好的东西是用眼睛看不到的。",
+                        "每一个孩子都应该有一个属于自己的花园。"
+                    ],
+                    en: [
+                        "The secret garden was a magical place.",
+                        "Every garden hides a secret.",
+                        "When we start caring for the garden, the garden cares for us.",
+                        "Mother always said the garden is the happiest place in the world.",
+                        "The power of life always appears when we least expect it.",
+                        "With love and hope, nothing is impossible.",
+                        "I believe in miracles, I believe in the magic of gardens.",
+                        "When you give your heart to the earth, the earth gives its heart to you.",
+                        "The most beautiful things in the world cannot be seen with eyes.",
+                        "Every child should have a garden of their own."
+                    ],
+                    fr: [
+                        "Le jardin secret était un endroit magique.",
+                        "Chaque jardin cache un secret.",
+                        "Quand nous commençons à prendre soin du jardin, le jardin prend soin de nous.",
+                        "Maman disait toujours que le jardin est l'endroit le plus heureux du monde.",
+                        "La force de la vie apparaît toujours quand on s'y attend le moins.",
+                        "Avec l'amour et l'espoir, rien n'est impossible.",
+                        "Je crois aux miracles, je crois à la magie des jardins.",
+                        "Quand tu donnes ton cœur à la terre, la terre te donne son cœur.",
+                        "Les plus belles choses du monde ne peuvent pas être vues avec les yeux.",
+                        "Chaque enfant devrait avoir son propre jardin."
+                    ]
+                }
             }
         };
 
@@ -2730,16 +3326,283 @@
             "Finnegans Wake": { cn: "芬尼根守灵夜", en: "Finnegans Wake", fr: "Finnegans Wake" }
         };
 
+        const bookIntrosDB = {
+            "1984": {
+                cn: "在极权主义社会中，老大哥时刻监视着每一个人。温斯顿·史密斯是一个党的外围成员，他开始质疑这一切，秘密地反对这个压迫性的政权。在无处不在的监控下，爱与叛逃成为最危险的反抗。",
+                en: "In a totalitarian society where Big Brother watches everyone, Winston Smith begins to secretly rebel against the oppressive regime. As he falls in love and searches for truth, he discovers the terrifying power of a regime that can control both history and human thought.",
+                fr: "Dans une société totalitaire où le Grand Frère surveille tout le monde, Winston Smith commence à se rebeller secrètement contre le régime oppressif. En tombant amoureux et en cherchant la vérité, il découvre le pouvoir terrifiant d'un régime qui peut contrôler l'histoire et la pensée humaine."
+            },
+            "The Great Gatsby": {
+                cn: "故事发生在咆哮的二十年代，神秘的百万富翁杰·盖茨比在他长岛的豪宅里举办奢华派对，只为追求他深爱的黛西·布坎南。尼克·卡拉威见证了美国梦的追求与破灭，以及爱情、野心和社会的交织。",
+                en: "Set in the Roaring Twenties, the mysterious millionaire Jay Gatsby hosts lavish parties at his mansion on Long Island, hoping to win back his lost love Daisy Buchanan. Nick Carraway witnesses the pursuit and destruction of the American Dream amidst love, ambition, and social decay.",
+                fr: "L'histoire se déroule dans les années folles. Le mystérieux millionaire Jay Gatsby organise des fêtes luxueuses dans son manoir de Long Island, espérant reconquérir son amour perdu Daisy Buchanan. Nick Carraway est témoin de la poursuite et de la destruction du rêve américain au milieu de l'amour, de l'ambition et de la décadence sociale."
+            },
+            "The Little Prince": {
+                cn: "一位飞行员在沙漠中坠机，遇见了一个来自遥远星球的小王子。通过小王子的星际旅行，我们看到了成人世界的荒谬与孤独，以及真正重要的东西——爱与责任。",
+                en: "A pilot crashes in the desert and meets a young prince from a distant asteroid. Through the prince's interstellar journey, we discover the absurdity of the adult world and the things that truly matter—love and responsibility.",
+                fr: "Un pilote s'écrase dans le désert et rencontre un jeune prince d'un astéroïde lointain. À travers le voyage interstellaire du prince, nous découvrons l'absurdité du monde adulte et les choses qui comptent vraiment—l'amour et la responsabilité."
+            },
+            "To Kill a Mockingbird": {
+                cn: "小女孩斯科特·芬奇和她的哥哥在一个南方小镇度过了难忘的夏天，他们的父亲——律师阿提克斯·芬奇——为一个被诬告的黑人辩护，教会了他们关于勇气、正义和人性的重要课程。",
+                en: "Young Scout Finch and her brother spend an unforgettable summer in a Southern town, as their father, lawyer Atticus Finch, defends a Black man falsely accused of a crime, teaching them about courage, justice, and humanity.",
+                fr: "La jeune Scout Finch et son frère passent un été inoubliable dans une ville du Sud, pendant que leur père, l'avocat Atticus Finch, défend un homme noir accusé à tort, leur apprenant le courage, la justice et l'humanité."
+            },
+            "Pride and Prejudice": {
+                cn: "伊丽莎白·贝内特在舞会上遇到了傲慢的达西先生。随着时间的推移和误解的解开，两人逐渐学会了克服偏见和傲慢，学会用平等的眼光看待彼此。",
+                en: "Elizabeth Bennet meets the proud Mr. Darcy at a ball. As time passes and misunderstandings unravel, both learn to overcome prejudice and pride, discovering that first impressions are not always reliable.",
+                fr: "Elizabeth Bennet rencontre le fier M. Darcy à un bal. Au fil du temps et alors que les malentendus se dissipent, tous deux apprennent à surmonter les préjugés et la fierté, découvrant que les premières impressions ne sont pas toujours fiables."
+            },
+            "Jane Eyre": {
+                cn: "简·爱是一个贫寒但坚强的女子，从慈善学校到桑菲尔德庄园，她的人生充满坎坷。在那里，她遇见了神秘的罗切斯特先生，一段充满激情的爱情故事就此展开。",
+                en: "Jane Eyre is a poor but determined woman whose life takes her from a charity school to Thornfield Hall. There she meets the mysterious Mr. Rochester, and a passionate love story unfolds between them.",
+                fr: "Jane Eyre est une femme pauvre mais déterminée dont la vie la mène d'une école caritative à Thornfield Hall. Là, elle rencontre le mystérieux M. Rochester, et une histoire d'amour passionnée se déroule entre eux."
+            },
+            "Wuthering Heights": {
+                cn: "呼啸山庄的两个家族通过两代人的恩怨纠缠在一起。希斯克利夫与凯瑟琳那段充满激情的爱恨情仇，至今仍让无数读者心碎。",
+                en: "Two families at Wuthering Heights are linked through generations of passion and revenge. The intense love story between Heathcliff and Catherine continues to break readers' hearts.",
+                fr: "Deux familles à Wuthering Heights sont liées à travers des générations de passion et de vengeance. L'histoire d'amour intense entre Heathcliff et Catherine continue de briser le cœur des lecteurs."
+            },
+            "The Old Man and the Sea": {
+                cn: "老渔夫圣地亚哥已经84天没有捕到鱼了，但他依然坚持出海。终于，他钓到了一条巨大的马林鱼，一场人与鱼的史诗般的搏斗开始了。",
+                en: "The old fisherman Santiago has gone 84 days without catching a fish, but he persists. Finally, he hooks a giant marlin, and an epic battle between man and fish begins.",
+                fr: "Le vieux pêcheur Santiago n'a pas attrapé de poisson depuis 84 jours, mais il persiste. Enfin, il attrape un巨大 marlin, et une bataille épique entre l'homme et le poisson commence."
+            },
+            "Gone with the Wind": {
+                cn: "斯嘉丽·奥哈拉是美国南方种植园主的女儿，在战争和革命的动荡中，她从一个娇生惯养的小姐成长为坚强独立的女人。但她最爱的人瑞特·巴特勒船长却渐渐离她远去。",
+                en: "Scarlett O'Hara, the daughter of a Southern plantation owner, transforms from a pampered debutante into a strong, independent woman amid the turmoil of war and revolution. But Rhett Butler, the man she loves, is slipping away.",
+                fr: "Scarlett O'Hara, fille d'un propriétaire de plantation du Sud, se transforme d'une jeune fille gâtée en une femme forte et indépendante au milieu du tumulte de la guerre et de la révolution. Mais Rhett Butler, l'homme qu'elle aime, s'éloigne."
+            },
+            "Les Misérables": {
+                cn: "冉·阿让因偷一块面包而入狱，出狱后被主教感化，从此洗心革面。芳汀、柯赛特……他的一生都在为拯救灵魂而战，在黑暗中传递光明与希望。",
+                en: "Jean Valjean is imprisoned for stealing a loaf of bread, then transformed by a bishop's kindness. From then on, he dedicates his life to saving souls, passing light and hope in a world of darkness.",
+                fr: "Jean Valjean est emprisonné pour avoir volé une miche de pain, puis transformé par la bonté d'un évêque. Dès lors, il dédie sa vie à sauver des âmes, transmettant la lumière et l'espoir dans un monde d'obscurité."
+            },
+            "The Picture of Dorian Gray": {
+                cn: "英俊的年轻绅士道林·格雷看到自己的画像后许下心愿：愿青春永驻，让画像代替他老去。当他犯下种种罪行时，画像却日渐丑陋，他自己却始终年轻。",
+                en: "The handsome young gentleman Dorian Gray makes a wish after seeing his portrait: to remain forever young while the portrait ages. As he commits terrible deeds, the portrait grows hideous, but he stays eternally young.",
+                fr: "Le beau jeune gentilhomme Dorian Gray fait un vœu après voir son portrait : rester éternellement jeune pendant que le portrait vieillit. Alors qu'il commet des actes terribles, le portrait devient hideux, mais lui reste éternellement jeune."
+            },
+            "Anna Karenina": {
+                cn: "贵族女子安娜·卡列尼娜婚内出轨，陷入了与军官沃伦斯基的热烈爱情。为了这份禁忌之爱，她付出了一切，却最终走向了悲剧的结局。",
+                en: "The aristocratic Anna Karenina embarks on a passionate affair with the officer Vronsky. For this forbidden love, she sacrifices everything, only to meet a tragic end.",
+                fr: "L'aristocrate Anna Karénine se lance dans une affaire passionnée avec l'officier Vronsky. Pour cet amour interdit, elle sacrifie tout, pour Aboutir à une fin tragique."
+            },
+            "War and Peace": {
+                cn: "在拿破仑入侵俄国的战争中，贵族家庭的故事与历史洪流交织在一起。皮埃尔、安德烈、娜塔莎……他们在战火中成长，在和平中寻找人生的意义。",
+                en: "The stories of aristocratic families intertwine with the historical tide of Napoleon's invasion of Russia. Pierre, Andrei, Natasha... they grow through war and seek meaning in peace.",
+                fr: "Les histoires de familles aristocratiques s'entremêlent avec le courant historique de l'invasion napoléonienne de la Russie. Pierre, André, Natasha... ils grandissent à travers la guerre et cherchent le sens de la vie dans la paix."
+            },
+            "Don Quixote": {
+                cn: "一个沉迷于骑士小说的乡绅穿上盔甲，骑上瘦马，把风车当作巨人，把客栈当作城堡，踏上了一个荒诞而又感人的冒险之旅。",
+                en: "A country gentleman obsessed with knight-errant novels dons armor, rides his skinny horse, mistakes windmills for giants and inns for castles, embarking on a absurd yet moving adventure.",
+                fr: "Un gentilhomme de campagne obsédé par les romans de chevalerie endosse une armure, monte son cheval maigre, prend les moulins à vent pour des géants et les auberges pour des châteaux, s'engageant dans une aventure absurde mais touchante."
+            },
+            "A Tale of Two Cities": {
+                cn: "法国大革命前夕，伦敦和巴黎的两段爱情故事在动荡的时代背景下展开。卡尔登为了爱人的幸福，甘愿走上断头台，留下了最伟大的爱的表白。",
+                en: "On the eve of the French Revolution, two love stories unfold across London and Paris. Sydney Carton, a dissolute English lawyer, makes the ultimate sacrifice for the woman he loves.",
+                fr: "À la veille de la Révolution française, deux histoires d'amour se déroule à Londres et Paris. Sydney Carton, un avocat anglais, fait le sacrifice ultime pour la femme qu'il aime."
+            },
+            "The Alchemist": {
+                cn: "牧羊少年圣地亚哥连续两次做了同一个梦，梦见埃及金字塔附近藏有宝藏。于是他卖掉羊群，踏上穿越撒哈拉的旅程，寻找属于自己的宝藏。",
+                en: "The shepherd boy Santiago dreams twice of treasure hidden near the Egyptian pyramids. He sells his flock and journeys across the Sahara, seeking his personal legend.",
+                fr: "Le jeune berger Santiago rêve deux fois d'un trésor caché près des pyramides égyptiennes. Il vend son troupeau et traverse le Sahara, cherchant sa légende personnelle."
+            },
+            "The Sun Also Rises": {
+                cn: "一战后，一群美国和英国青年流落在巴黎和西班牙，他们迷惘、空虚，在酒精和斗牛中寻找刺激。杰克·巴恩斯和布雷特·阿什利之间的爱情，因战争而永远无法圆满。",
+                en: "After World War I, a group of American and British expatriates wander through Paris and Spain, seeking stimulation in alcohol and bullfighting. Jake Barnes and Brett Ashley's love can never be fulfilled because of the war.",
+                fr: "Après la Première Guerre mondiale, un groupe d'Américains et de Britanniques errent à Paris et en Espagne, cherchant des stimulations dans l'alcool et les courses de taureaux. L'amour entre Jake Barnes et Brett Ashley ne peut jamais se réaliser à cause de la guerre."
+            },
+            "The Stranger": {
+                cn: "默尔索在母亲的葬礼上没有哭泣，后来还糊里糊涂地杀了人。在审判中，检察官指控他'在母亲葬礼上没有哭泣'，最终他被判处死刑，完成了存在主义文学史上最荒凉的结局。",
+                en: "Meursault does not cry at his mother's funeral and later kills a man almost by accident. At his trial, the prosecutor condemns him for 'not crying at his mother's funeral,' and he is sentenced to death.",
+                fr: "Meursault ne pleure pas aux funérailles de sa mère et tue plus tard un homme presque par accident. Au procès, le procureur le condamne pour 'ne pas avoir pleuré aux funérailles de sa mère', et il est condamné à mort."
+            },
+            "Brave New World": {
+                cn: "在一个通过基因工程和条件反射塑造公民的未来社会，福特纪元632年，伯纳·马克思来到美丽的保留区，带回了原始人约翰，却引发了一场文明与野蛮、自由与控制的激烈冲突。",
+                en: "In a future society where citizens are genetically engineered and conditioned, Bernard Marx brings 'the Savage' John back from a reservation, triggering a fierce clash between civilization and barbarism, freedom and control.",
+                fr: "Dans une société future où les citoyens sont génétiquement modifiés et conditionnés, Bernard Marx ramène 'le Sauvage' John d'une réserve, déclenchant un violent conflit entre civilisation et barbarie, liberté et contrôle."
+            },
+            "The Secret Garden": {
+                cn: "任性的小女孩玛丽被送到约克郡的庄园，与瘫痪的表哥科林和热爱自然的男孩迪肯相遇。在一座被锁了十年的神秘花园里，她找到了生命的奇迹。",
+                en: "The spoiled Mary is sent to a Yorkshire manor, where she meets the paralyzed cousin Colin and the nature-loving Dickon. In a mysterious garden locked for ten years, she discovers the miracle of life.",
+                fr: "La petite Mary gâtée est envoyée dans un manoir du Yorkshire, où elle rencontre le cousin paralytique Colin et le garçon aimant la nature Dickon. Dans un jardin mystérieux fermé pendant dix ans, elle découvre le miracle de la vie."
+            },
+            "百年孤独": {
+                cn: "布恩迪亚家族七代人的兴衰史，从建立马孔多小镇到最后整个家族的毁灭。魔幻与现实交织，讲述了一个家族百年的孤独与命运。",
+                en: "The rise and fall of seven generations of the Buendía family, from founding the town of Macondo to the family's ultimate destruction. Magic realism weaves through the tale of a family's century of solitude and fate.",
+                fr: "L'ascension et la chute de sept générations de la famille Buendía, depuis la fondation du village de Macondo jusqu'à la destruction finale de la famille. Le réalisme magique se tisse à travers l'histoire d'une famille et sa solitude."
+            },
+            "围城": {
+                cn: "方鸿渐留学回国，在回国的船上爱上了鲍小姐。回国后经历了三段失败的感情，最终与孙柔嘉结婚，婚后的生活却充满了矛盾与争吵，围城困住了他的人生。",
+                en: "Fang Hung-chien returns from abroad and falls in love aboard a ship. After returning home, he experiences three failed relationships before marrying Sun Jou-chia. Their married life is full of conflicts, trapped by a siege he cannot escape.",
+                fr: "Fang Hung-chien rentre de l'étranger et tombe amoureux sur un bateau. De retour chez lui, il vit trois relations ratées avant d'épouser Sun Jou-chia. Leur vie conjugale est pleine de conflits, piégée dans un siège qu'il ne peut échapper."
+            },
+            "红楼梦": {
+                cn: "贾宝玉在贾府大观园中与林黛玉、薛宝钗等人一起成长。宝黛之间的爱情悲剧，大观园的兴衰，映射出封建社会的种种矛盾与衰落。",
+                en: "Jia Baoyu grows up with Lin Daiyu and Xue Baochai in the Grand View Garden of the Jia household. The tragic love between Baoyu and Daiyu, and the rise and fall of the garden, reflect the contradictions and decline of feudal society.",
+                fr: "Jia Baoyu grandit avec Lin Daiyu et Xue Baochai dans le Grand Jardin de Vue de la maison Jia. L'amour tragique entre Baoyu et Daiyu, et la montée et la chute du jardin, reflètent les contradictions et le déclin de la société féodale."
+            },
+            "Hamlet": {
+                cn: "丹麦王子哈姆雷特的父亲被害死，叔叔篡位，母亲改嫁。哈姆雷特装疯复仇，却陷入了to be or not to be的永恒困境，最终与敌人同归于尽。",
+                en: "Prince Hamlet of Denmark sees his father murdered, his uncle usurps the throne, and his mother remarries. Feigning madness to avenge his father, Hamlet faces the eternal dilemma of to be or not to be, ultimately destroying his enemies at the cost of his own life.",
+                fr: "Le prince Hamlet de Danemark voit son père assassiné, son oncle usurpe le trône et sa mère se remarie. Feignant la folie pour venger son père, Hamlet affronte le dilemme éternel d'être ou ne pas être, détruisant finalement ses ennemis au prix de sa propre vie."
+            },
+            "The Catcher in the Rye": {
+                cn: "霍尔顿·考尔菲尔德是一个16岁的少年，他在纽约游荡了几天，讲述了他被学校开除后的心理历程。这部小说是美国文学的经典之作，深刻探讨了青春期的孤独、反叛和对虚伪社会的厌恶。",
+                en: "Holden Caulfield is a 16-year-old who wanders New York for days after being expelled from school, narrating his psychological journey. This novel is a classic of American literature, deeply exploring teenage loneliness, rebellion, and厌恶 of a phony society.",
+                fr: "Holden Caulfield est un adolescent de 16 ans qui erre à New York pendant quelques jours après avoir été renvoyé de son école, racontant son voyage psychologique. Ce roman est un classique de la littérature américaine, explorant profondément la solitude adolescente, la rébellion et l'aversion pour une société hypocrite."
+            },
+            "Frankenstein": {
+                cn: "年轻的科学家维克多·弗兰肯斯坦用尸体部件创造了一个有生命的生物，但因无法接受自己的造物而逃离。怪物在孤独中变得邪恶，向创造者复仇。这是对科学野心与道德责任的深刻警示。",
+                en: "Young scientist Victor Frankenstein creates a living being from body parts but flees in horror. The creature, tormented by loneliness, turns evil and seeks revenge on his creator. A profound warning about scientific ambition and moral responsibility.",
+                fr: "Le jeune scientifique Victor Frankenstein crée un être vivant à partir de parties du corps mais s'enfuit d'horreur. La créature, tourmentée par la solitude, devient méchante et cherche à se venger de son créateur. Un avertissement profond sur l'ambition scientifique et la responsabilité morale."
+            },
+            "A Clockwork Orange": {
+                cn: "在未来的反乌托邦社会，少年艾力克斯带领一群小混混在街头作恶。他被捕后被迫接受政府的人格改造实验，试图通过条件反射消除他的暴力倾向。这是对自由意志与政府控制边界的深刻思考。",
+                en: "In a dystopian future, Alex leads a gang of混混 on violent rampages. After capture, he's subjected to government experiments attempting to eliminate his violent tendencies through conditioning. A profound meditation on free will and government control.",
+                fr: "Dans un avenir dystopique, Alex mène une bande de délinquants dans des rampages violents. Après sa capture, il est soumis à des expériences gouvernementales tentant d'éliminer ses tendances violentes par le conditionnement. Une profonde méditation sur la liberté et le contrôle gouvernemental."
+            },
+            "The Grapes of Wrath": {
+                cn: "大萧条时期，俄克拉荷马的农民乔德一家被迫离开家园，向传说中的加州进发。他们在迁徙途中经历了无数的苦难，但始终保持着人性的尊严和对美好未来的希望。",
+                en: "During the Great Depression, the Joad family is forced from their Oklahoma farm and heads west to California. Through countless hardships, they maintain human dignity and hope for a better future.",
+                fr: "Pendant la Grande Dépression, la famille Joad est chassée de sa ferme en Oklahoma et se dirige vers la Californie. À travers d'innombrables épreuves, ils maintiennent la dignité humaine et l'espoir d'un meilleur avenir."
+            },
+            "Brave New World": {
+                cn: "在福特纪元632年的世界，国家通过基因工程和条件反射来塑造公民的行为。伯纳·马克思从保留区带回了一个'野蛮人'约翰，他的到来引发了这个假完美社会中人们对自由和真实情感的渴望。",
+                en: "In the World State of Ford 632, citizens are conditioned through genetic engineering and conditioning. Bernard Marx brings 'the Savage' John from a reservation, whose arrival triggers a longing for freedom and authentic emotion in this seemingly perfect society.",
+                fr: "Dans le Monde State de Ford 632, les citoyens sont conditionnés par l'ingénierie génétique et le conditionnement. Bernard Marx ramène 'le Sauvage' John d'une réserve, dont l'arrivée déclenche un désir de liberté et d'émotions authentiques dans cette société apparemment parfaite."
+            },
+            "The Handmaid's Tale": {
+                cn: "在极权国家吉列共和国，女性被剥夺了所有权利，成为生育工具。奥芙弗雷德是这个社会中为数不多的还能生育的女性之一，她用隐藏的日记记录下了这个荒诞而恐怖的世界。",
+                en: "In the totalitarian Republic of Gilead, women are stripped of all rights and reduced to birthing vessels. Offred is one of the few fertile women, secretly narrating this absurd and terrifying world through hidden diaries.",
+                fr: "Dans la République totalitaire de Gilead, les femmes sont dépouillées de tous leurs droits et réduites à des vases de procréation. Offred est l'une des rares femmes fertiles, narrant secrètement ce monde absurde et terrifiant à travers des journaux cachés."
+            },
+            "Great Expectations": {
+                cn: "孤儿皮普在资助下成为上等人，但他渐渐发现自己真正珍惜的是劳动人民的善良。经历了金钱、爱情和身份的考验后，他终于明白了善良比财富更重要的道理。",
+                en: "The orphan Pip is funded to become a gentleman, but gradually discovers he truly values the kindness of working people. After trials of money, love, and identity, he finally understands that goodness matters more than wealth.",
+                fr: "L'orphelin Pip est financé pour devenir un gentleman, mais découvre progressivement qu'il valorise vraiment la gentillesse des gens du travail. Après des épreuves d'argent, d'amour et d'identité, il comprend enfin que la bonté compte plus que la richesse."
+            },
+            "Moby-Dick": {
+                cn: "捕鲸船'裴阔德'号船长亚哈执意追杀一条巨大的白色抹香鲸——莫比·迪克。这场史诗般的追捕最终以悲剧收场，深刻探讨了执念、复仇与人与自然的关系。",
+                en: "Captain Ahab of the whaling ship Pequod is obsessed with hunting the great white whale Moby Dick. This epic pursuit ends in tragedy, deeply exploring obsession, revenge, and humanity's relationship with nature.",
+                fr: "Le capitaine Ahab du baleinier Pequod est obsédé par la chasse de la grande baleine blanche Moby Dick. Cette poursuite épique se termine en tragédie, explorant profondément l'obsession, la vengeance et la relation de l'humanité avec la nature."
+            },
+            "The Odyssey": {
+                cn: "奥德修斯在特洛伊战争后开始了十年的归家之旅。他战胜了独眼巨人、女巫喀耳刻和海妖塞壬的考验，最终回到故乡伊萨卡，与妻子珀涅罗珀团聚。",
+                en: "Odysseus begins a ten-year journey home after the Trojan War. He conquers tests from the Cyclops, sorceress Circe, and sirens, finally returning to Ithaca to reunite with his wife Penelope.",
+                fr: "Ulysse entame un voyage de dix ans vers chez lui après la guerre de Troie. Il conquiert les épreuves du Cyclope, de la sorcière Circé et des sirènes, retournant finalement à Ithaque pour se réunir avec sa femme Pénélope."
+            },
+            "The Iliad": {
+                cn: "特洛伊战争第十年，希腊英雄阿喀琉斯与统帅阿伽门农发生争执后退出战斗。特洛伊王子赫克托尔趁机反击，但最终被阿喀琉斯杀死。战争继续，最终以特洛伊的陷落告终。",
+                en: "In the tenth year of the Trojan War, Greek hero Achilles withdraws after quarrelling with commander Agamemnon. Prince Hector seizes the opportunity to counterattack but is eventually slain by Achilles. The war ends with Troy's fall.",
+                fr: "Dans la dixième année de la guerre de Troie, le héros grec Achille se retire après une querelle avec le commandant Agamemnon. Le prince Hector saisit l'occasion de contre-attaquer mais est finalement tué par Achille. La guerre se termine par la chute de Troie."
+            },
+            "Romeo and Juliet": {
+                cn: "蒙太古家的罗密欧与凯普莱特大家的朱丽叶在舞会上一见钟情。但两个家族是世仇，他们的爱情注定是悲剧。在神父的帮助下他们秘密结婚，但一系列的误会最终导致两人殉情。",
+                en: "Romeo of the Montagues and Juliet of the Capulets fall in love at a ball. Their families are bitter enemies, making their love注定 to be tragic. With the friar's help they marry secretly, but a series of misunderstandings leads to their double suicide.",
+                fr: "Roméo des Montaigu et Juliette des Capulet tombent amoureux à un bal. Leurs familles sont de ennemis jurés, rendant leur amour condamné à être tragique. Avec l'aide du prêtre, ils se marient secrètement, mais une série de malentendus mène à leur suicide double."
+            },
+            "A Midsummer Night's Dream": {
+                cn: "四对恋人逃入雅典附近的魔法森林，在那里遭遇了精灵王奥布朗和仙后提泰妮娅的纠纷。一场混乱的魔法药水事件让一切变得更加复杂，但最终有情人终成眷属。",
+                en: "Four lovers flee into the enchanted forest near Athens, where they encounter disputes between fairy king Oberon and queen Titania. Chaotic potion mishaps complicate everything, but ultimately lovers find each other.",
+                fr: "Quatre amants fuient dans la forêt enchantée près d'Athènes, où ils rencontrent des disputes entre le roi des fées Obéron et la reine Titania. Des malheurs de potions magiques chaotiques compliquent tout, mais finalement les amants se retrouvent."
+            },
+            "The Tempest": {
+                cn: "米兰公爵普洛斯彼罗被弟弟安东尼奥篡位流放，带着女儿 Miranda 逃到孤岛。他用魔法制造风暴来报复仇人，但最终选择了宽恕，成为一部关于复仇与和解的深刻戏剧。",
+                en: "Milan's Duke Prospero is exiled by brother Antonio to a lonely island with daughter Miranda. Using magic to conjure a storm for revenge, he ultimately chooses forgiveness in this profound drama of revenge and reconciliation.",
+                fr: "Le duc de Milan Prospero est exilé par son frère Antonio sur une île solitaire avec sa fille Miranda. Utilisant la magie pour évoquer une tempête pour la vengeance, il choisit finalement le pardon dans ce drame profond de vengeance et de réconciliation."
+            },
+            "The Brothers Karamazov": {
+                cn: "俄罗斯贵族卡拉马佐夫家四兄弟——德米特里、伊万、阿辽沙和私生子斯梅尔佳科夫——与父亲有着复杂的矛盾。的父亲被杀害后，他们都被指控为嫌疑人。这部小说是对信仰、理性与人性的深刻探讨。",
+                en: "Four Karamazov brothers—Dmitri, Ivan, Alyosha, and illegitimate Smerdyakov—have complex conflicts with their father. When the father is murdered, all become murder suspects. A profound exploration of faith, reason, and human nature.",
+                fr: "Les quatre frères Karamazov—Dmitri, Ivan, Alyosha et le bâtard Smerdiakov—ont des conflits complexes avec leur père. Quand le père est assassiné, tous deviennent suspects. Une exploration profonde de la foi, de la raison et de la nature humaine."
+            },
+            "Demian": {
+                cn: "青年艾米尔·辛克莱在寻找自我的过程中遇到了神秘的马克斯·德米安。在他的引导下，艾米尔逐渐认识到世界的两面性——光明与黑暗、善与恶——开始接受完整的人性。",
+                en: "Young Emil Sinclair encounters the mysterious Max Demian while searching for his identity. Under his guidance, Emil gradually recognizes the duality of the world—light and dark, good and evil—learning to accept complete humanity.",
+                fr: "Le jeune Emil Sinclair rencontre le mystérieux Max Demian lors de sa recherche d'identité. Sous sa direction, Emil reconnaît progressivement la dualité du monde—lumière et obscurité, bien et mal—apprenant à accepter l'humanité complète."
+            },
+            "Siddhartha": {
+                cn: "年轻的印度贵族 Siddhartha 离开家乡寻找真理。他先后成为苦行者、商人和船夫，在与河流的对话中，最终找到了内心的平静和生命的智慧。",
+                en: "Young Indian noble Siddhartha leaves home to seek truth. He becomes an ascetic, merchant, and ferryman, finally finding inner peace and life's wisdom through conversations with the river.",
+                fr: "Le jeune noble indien Siddhartha quitte la maison pour chercher la vérité. Il devient ascète, marchand et passeur, trouvant finalement la paix intérieure et la sagesse de la vie à travers des conversations avec la rivière."
+            },
+            "The Trial": {
+                cn: "银行职员约瑟夫·K 在30岁生日那天被逮捕，但没有人告诉他罪名是什么。他拼命证明自己的清白，但越深入这个官僚体系，就越感到无力。这是对现代异化和司法制度的深刻批判。",
+                en: "Bank clerk Joseph K is arrested on his 30th birthday, but no one tells him his crime. As he struggles to prove his innocence, he feels increasingly powerless against the bureaucratic system. A profound critique of modern alienation and justice.",
+                fr: "Le commis de banque Joseph K est arrêté le jour de son 30e anniversaire, mais personne ne lui dit son crime. Alors qu'il s'efforce de prouver son innocence, il se sent de plus en plus impuissant face au système bureaucratique. Une critique profonde de l'aliénation moderne et de la justice."
+            },
+            "The Metamorphosis": {
+                cn: "旅行推销员格里高尔·萨姆沙一觉醒来发现自己变成了一只巨大的甲虫。他的家人无法接受这个事实，渐渐疏远了他。最终萨姆沙在孤独中死去，但他的家人却松了一口气。",
+                en: "Travel salesman Gregor Samsa wakes to find himself transformed into a giant beetle. His family cannot accept this, gradually distancing themselves. Gregor dies alone, but his family feels relieved.",
+                fr: "Le représentant de commerce Gregor Samsa se réveille pour découvrir qu'il s'est transformé en un énorme scarabée. Sa famille ne peut pas l'accepter, s'éloignant progressivement. Gregor meurt seul, mais sa famille se sent soulagée."
+            },
+            "The Wind in the Willows": {
+                cn: "河岸边的四个好朋友——鼹鼠、河鼠、蟾蜍和獾——在英国乡村经历了一系列冒险。蟾蜍的挥霍和鲁莽导致了庄园被占领，但朋友们齐心协力帮他夺回了家。",
+                en: "Four friends by the river—Mole, Rat, Toad, and Badger—experience adventures in the English countryside. Toad's extravagance and recklessness leads to his estate being occupied, but friends rally to help him reclaim his home.",
+                fr: "Quatre amis au bord de la rivière—Mole, Rat, Taupe et Blaireau—vivent des aventures dans la campagne anglaise. L'extravagance et l'imprudence de Taupe mènent à l'occupation de son domaine, mais les amis se rassemblent pour l'aider à le récupérer."
+            },
+            "Walden": {
+                cn: "梭罗在瓦尔登湖畔的小屋中居住了两年两个月，亲近自然，简朴生活。他记录下了对人生、社会和自然的深刻思考，成为美国文学中自然主义的经典之作。",
+                en: "Thoreau lives in a cabin at Walden Pond for two years and two months, close to nature in simple living. He records profound reflections on life, society, and nature, becoming a classic of American literary naturalism.",
+                fr: "Thoreau vit dans une cabane au lac Walden pendant deux ans et deux mois, proche de la nature dans une vie simple. Il enregistre des réflexions profondes sur la vie, la société et la nature, devenant un classique du naturalisme littéraire américain."
+            },
+            "The Divine Comedy": {
+                cn: "但丁在35岁时迷失在黑暗的森林中，被古罗马诗人维吉尔引导游历地狱、炼狱，最终在贝雅特丽齐的引导下到达天堂。这部史诗是中世纪文化的最高成就之一。",
+                en: "Dante, at age 35, is lost in a dark forest, guided by ancient Roman poet Virgil through Hell and Purgatory, finally reaching Paradise under Beatrice's guidance. This epic is one of the highest achievements of medieval culture.",
+                fr: "Dante, à 35 ans, est perdu dans une forêt sombre, guidé par le poète romain antique Virgile à travers l'Enfer et le Purgatoire, atteignant finalement le Paradis sous la guidée de Béatrice. Cette épopée est l'une des plus hautes réalisations de la culture médiévale."
+            },
+            "Madame Bovary": {
+                cn: "农场主女儿艾玛·包法利嫁给平庸的医生查尔斯后，对平淡的生活感到厌倦。她开始追求浪漫和刺激，欠下巨额债务，最终在绝望中服毒自尽。这是 对浪漫主义幻想破灭的深刻批判。",
+                en: "Emma Bovary, daughter of a farmer, marries mediocre doctor Charles and grows bored with平淡 life. She pursues romance and excitement, accumulating huge debts, ultimately committing suicide by poisoning. A profound critique of romantic disillusionment.",
+                fr: "Emma Bovary, fille d'un agriculteur, épouse le médecin médiocre Charles et se lasse de la vie terne. Elle poursuit le romantisme et l'excitation, accumulant d'énormes dettes, se suicidant finalement par empoisonnement. Une critique profonde du désillusionnement romantique."
+            },
+            "Ulysses": {
+                cn: "1904年6月16日，都柏林街头发生了意识流式的故事。广告推销员利奥波德·布鲁姆和青年斯蒂芬·代达罗斯在城市的街道上徘徊，他们的内心独白交织成一幅城市孤独与渴望的画卷。",
+                en: "On June 16, 1904, anstream of consciousness story unfolds through Dublin streets. Ad salesman Leopold Bloom and young Stephen Dedalus wander the city, their interior monologues weaving a portrait of urban loneliness and longing.",
+                fr: "Le 16 juin 1904, une histoire de flux de conscience se déroule dans les rues de Dublin. Le publicitaire Leopold Bloom et le jeune Stephen Dedalus errent dans la ville, leurs monologues intérieurs tissant un portrait de solitude et de désir urbains."
+            },
+            "In Search of Lost Time": {
+                cn: "叙述者马塞尔在童年时对母亲的爱和嫉妒、盖尔芒特家族的社交圈、以及与阿尔贝蒂娜的同性恋情中，追忆逝去的时光。这部巨著探索记忆、时间和艺术的主题。",
+                en: "Narrator Marcel recalls lost time through childhood love and jealousy for his mother, the social circles of the Guermantes family, and his homosexual relationship with Albertine. This epic explores themes of memory, time, and art.",
+                fr: "Le narrateur Marcel se souvient du temps perdu à travers l'amour d'enfance et la jalousie pour sa mère, les cercles sociaux de la famille Guermantes, et sa relation homosexuelle avec Albertine. Cette épopée explore les thèmes de la mémoire, du temps et de l'art."
+            },
+            "Finnegans Wake": {
+                cn: "这部实验性小说是关于都柏林郊区的夜店老板汉弗莱·奇aspers·代 Neymegen 和他的家人、朋友的梦。梦境与现实交融，语言充满双关和创造性新词，构成了对人类历史的宏大叙事。",
+                en: "This experimental novel concerns dreams of Dublin pub owner Humphrey Chippenblow Kinancomb and his family and friends. Dreams and reality blend as language full of puns and creative neologisms constructs a grand narrative of human history.",
+                fr: "Ce roman expérimental concerne les rêves du propriétaire de pub dublinois Humphrey Chippenblow Kinancomb et de sa famille et ses amis. Rêves et réalité se mêlent alors que le langage plein de calembours et de néologismes créatifs construit une grande narration de l'histoire humaine."
+            },
+            "Stray Birds": {
+                cn: "泰戈尔的这部诗集用简洁而深刻的短诗表达了关于生命、爱情、自然和灵魂的哲理。这些诗句如同断线的飞鸟，自由自在地飞翔在读者心中。",
+                en: "Tagore's poetry collection expresses philosophy about life, love, nature, and the soul through concise yet profound short poems. These verses, like stray birds, freely soar in readers' hearts.",
+                fr: "La collection poétique de Tagore exprime la philosophie sur la vie, l'amour, la nature et l'âme à travers des poèmes courts mais profonds. Ces vers, comme des oiseaux errants, volent librement dans le cœur des lecteurs."
+            },
+            "Golden Threshold": {
+                cn: "泰戈尔的另一部重要诗集，收录了关于童年、故乡和理想的诗篇。诗人用优美的语言描绘了印度的自然风光和人文景观，表达了对美好世界的向往。",
+                en: "Another important poetry collection by Tagore, containing poems about childhood, homeland, and ideals. The poet beautifully depicts India's natural scenery and cultural landscape, expressing longing for a better world.",
+                fr: "Une autre collection poétique importante de Tagore, contenant des poèmes sur l'enfance, la patrie et les idéaux. Le poète dépeint magnifiquement les paysages naturels et le paysage culturel de l'Inde, exprimant le désir d'un monde meilleur."
+            },
+            "Aesop's Fables": {
+                cn: "古希腊寓言家伊索创作的短小精悍的动物故事，蕴含着深刻的人生哲理。狼来了、龟兔赛跑、狐狸吃不到葡萄说葡萄酸等故事，流传千古，至今仍发人深省。",
+                en: "Short, concise animal stories created by ancient Greek fable writer Aesop, containing profound life philosophy. Stories like 'The Boy Who Cried Wolf,' 'The Tortoise and the Hare,' and 'The Fox and the Grapes' have endured for millennia, still thought-provoking today.",
+                fr: "Contes animaliers courts et concis créés par le fabuliste grec antique Ésope, contenant une philosophie profonde de la vie. Des histoires comme 'Le Berger et le Loup,' 'Le Lièvre et la Tortue,' et 'Le Renard et les Raisins' ont traversé les millénaires, toujours stimulants aujourd'hui."
+            },
+            "Don Juan": {
+                cn: "拜伦爵士创作的长诗，讲述了唐璜这个风流成性的西班牙贵族的冒险故事。他从西班牙到希腊，从土耳其后宫到英国宫廷，用智慧和魅力征服了无数女性。",
+                en: "Lord Byron's epic poem tells of Don Juan's adventures as a风流 Spanish noble. From Spain to Greece, from Turkish harem to English court, he conquers countless women with wit and charm.",
+                fr: "L'épopée de Lord Byron raconte les aventures de Don Juan en tant que noble espagnol libertin. De l'Espagne à la Grèce, du harem turc à la cour anglaise, il conquiert d'innombrables femmes par l'esprit et le charme."
+            }
+        };
+
         const floatingColors = [
-            'rgba(255, 107, 107, 0.5)',
-            'rgba(78, 205, 196, 0.5)',
-            'rgba(255, 230, 109, 0.5)',
-            'rgba(149, 225, 211, 0.5)',
-            'rgba(243, 129, 129, 0.5)',
-            'rgba(170, 150, 218, 0.5)',
-            'rgba(252, 186, 211, 0.5)',
-            'rgba(168, 216, 234, 0.5)',
-            'rgba(255, 255, 255, 0.6)'
+            'rgba(255, 255, 255, 0.85)',
+            'rgba(200, 220, 255, 0.9)',
+            'rgba(255, 255, 220, 0.85)',
+            'rgba(180, 200, 255, 0.85)',
+            'rgba(255, 240, 200, 0.8)',
+            'rgba(220, 255, 255, 0.85)',
+            'rgba(255, 200, 220, 0.8)',
+            'rgba(240, 240, 255, 0.85)'
         ];
 
         const headerFloatingTitlesDB = {
@@ -2765,14 +3628,58 @@
         };
 
         const headerFloatingColors = [
-            'rgba(255, 255, 255, 0.4)',
-            'rgba(255, 255, 255, 0.5)',
-            'rgba(255, 255, 255, 0.35)'
+            'rgba(255, 255, 255, 0.7)',
+            'rgba(255, 255, 255, 0.8)',
+            'rgba(255, 255, 255, 0.6)'
         ];
+
+        const uiTexts = {
+            cn: {
+                title: '书语',
+                subtitle: '发现世界文学的智慧',
+                searchPlaceholder: '按书名搜索...',
+                loading: '加载中...',
+                noResultsTitle: '未找到引言',
+                noResultsText: '尝试搜索其他书名或从列表中选择一本书。',
+                clickHint: '点击创建明信片',
+                refreshBtn: '换一批',
+                footer: '为全世界的书爱者而作',
+                close: '关闭',
+                download: '下载'
+            },
+            en: {
+                title: 'Book Quotes',
+                subtitle: 'Discover wisdom from the world\'s greatest literature',
+                searchPlaceholder: 'Search by book title...',
+                loading: 'Loading quotes...',
+                noResultsTitle: 'No quotes found',
+                noResultsText: 'Try searching for a different book title or select a book from the list.',
+                clickHint: 'Click to create postcard',
+                refreshBtn: 'New Quotes',
+                footer: 'Made with love for book lovers everywhere',
+                close: 'Close',
+                download: 'Download'
+            },
+            fr: {
+                title: 'Citations de Livres',
+                subtitle: 'Découvrez la sagesse de la littérature mondiale',
+                searchPlaceholder: 'Rechercher par titre...',
+                loading: 'Chargement...',
+                noResultsTitle: 'Aucune citation trouvée',
+                noResultsText: 'Essayez de rechercher un autre titre ou sélectionnez un livre dans la liste.',
+                clickHint: 'Cliquez pour créer une carte',
+                refreshBtn: 'Nouvelles Citations',
+                footer: 'Fait avec amour pour les amoureux des livres',
+                close: 'Fermer',
+                download: 'Télécharger'
+            }
+        };
 
         let currentLanguage = 'en';
         let currentSearchTerm = '';
         let displayedQuotes = [];
+        let totalLoadedCount = 0;
+        let allLoadedQuotes = [];
         let floatingInterval;
         let lastLanguageChange = 0;
 
@@ -2782,27 +3689,130 @@
             loadInitialQuotes();
             startFloatingTitles();
             startHeaderFloatingTitles();
+            startStars();
+        }
+
+        let starsInterval;
+        
+        function createStar() {
+            const starsContainer = document.getElementById('stars');
+            if (!starsContainer) return;
+
+            const star = document.createElement('div');
+            star.className = 'star';
+
+            const size = Math.random() * 2.5 + 0.5;
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const duration = Math.random() * 4 + 3; // 3-7 seconds lifespan
+
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = x + '%';
+            star.style.top = y + '%';
+            star.style.setProperty('--duration', duration + 's');
+
+            starsContainer.appendChild(star);
+
+            // Remove star after animation completes
+            setTimeout(() => {
+                if (star.parentNode) {
+                    star.parentNode.removeChild(star);
+                }
+            }, duration * 1000 + 100);
+        }
+
+        function startStars() {
+            // Create initial batch of stars - more stars
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => createStar(), Math.random() * 3000);
+            }
+            
+            // Continuously create new stars - but slower
+            starsInterval = setInterval(() => {
+                createStar();
+            }, 300); // New star every 300ms (slower)
         }
 
         function displayBookList() {
             const bookList = document.getElementById('bookList');
-            const books = Object.keys(quotesDB);
+            let books = Object.keys(quotesDB);
+            
+            // Shuffle the books array
+            for (let i = books.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [books[i], books[j]] = [books[j], books[i]];
+            }
+            
             bookList.innerHTML = books.map(book => {
                 const title = bookTitlesDB[book] ? bookTitlesDB[book][currentLanguage] : book;
                 return `<span class="book-tag" data-book="${book}" onclick="searchBook('${book.replace(/'/g, "\\'")}')">${title}</span>`;
             }).join('');
         }
 
+        function refreshBookList() {
+            const bookList = document.getElementById('bookList');
+            bookList.style.opacity = '0';
+            bookList.style.transform = 'translateY(-10px)';
+            bookList.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            
+            setTimeout(function() {
+                displayBookList();
+                bookList.style.opacity = '1';
+                bookList.style.transform = 'translateY(0)';
+            }, 400);
+        }
+
         function setupSearch() {
             const searchInput = document.getElementById('searchInput');
+            const cursor = document.querySelector('.typewriter-cursor');
             let debounceTimer;
+            
+            // Function to update cursor position
+            function updateCursorPosition() {
+                const text = searchInput.value || ' ';
+                const span = document.createElement('span');
+                span.style.font = 'Courier New, monospace';
+                span.style.fontSize = '1.05rem';
+                span.style.letterSpacing = '0.5px';
+                span.style.visibility = 'hidden';
+                span.style.whiteSpace = 'pre';
+                span.style.left = '-9999px';
+                span.textContent = text;
+                document.body.appendChild(span);
+                const textWidth = span.offsetWidth;
+                document.body.removeChild(span);
+                
+                // Position cursor after the text
+                const baseLeft = 50;
+                cursor.style.left = (baseLeft + textWidth + 8) + 'px';
+            }
             
             searchInput.addEventListener('input', (e) => {
                 clearTimeout(debounceTimer);
+                updateCursorPosition();
+                cursor.classList.add('typing');
+                cursor.classList.remove('inactive');
+                
                 debounceTimer = setTimeout(() => {
+                    cursor.classList.remove('typing');
+                    if (!searchInput.value) {
+                        cursor.classList.add('inactive');
+                    }
                     currentSearchTerm = e.target.value;
                     loadQuotes();
                 }, 300);
+            });
+            
+            searchInput.addEventListener('focus', () => {
+                cursor.classList.remove('inactive');
+                updateCursorPosition();
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                if (!searchInput.value) {
+                    cursor.classList.add('inactive');
+                }
             });
         }
 
@@ -2813,15 +3823,15 @@
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
 
-            const buttonTexts = {
-                cn: { close: '关闭', download: '下载' },
-                en: { close: 'Close', download: 'Download' },
-                fr: { close: 'Fermer', download: 'Télécharger' }
-            };
-            document.getElementById('postcardCloseBtn').textContent = buttonTexts[lang].close;
-            document.getElementById('postcardDownloadBtn').textContent = buttonTexts[lang].download;
+            const texts = uiTexts[lang];
+            document.querySelector('h1').textContent = texts.title;
+            document.querySelector('.subtitle').textContent = texts.subtitle;
+            document.getElementById('searchInput').placeholder = texts.searchPlaceholder;
+            document.querySelector('.refresh-btn').innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>${texts.refreshBtn}`;
+            document.querySelector('footer p').textContent = texts.footer;
+            document.getElementById('postcardCloseBtn').textContent = texts.close;
+            document.getElementById('postcardDownloadBtn').textContent = texts.download;
 
-            // Add new floating titles in new language
             const container = document.getElementById('floatingTitles');
             if (container) {
                 for (let i = 0; i < 5; i++) {
@@ -2829,7 +3839,6 @@
                 }
             }
 
-            // Add header floating titles in new language
             const headerContainer = document.getElementById('headerFloatingTitles');
             if (headerContainer) {
                 for (let i = 0; i < 3; i++) {
@@ -2843,7 +3852,9 @@
 
         function searchBook(bookTitle) {
             currentSearchTerm = bookTitle;
-            document.getElementById('searchInput').value = bookTitle;
+            var input = document.getElementById('searchInput');
+            var displayTitle = bookTitlesDB[bookTitle] ? bookTitlesDB[bookTitle][currentLanguage] : bookTitle;
+            input.value = displayTitle;
             loadQuotes();
         }
 
@@ -2852,93 +3863,158 @@
         }
 
         function loadInitialQuotes() {
-            const randomBook = Object.keys(quotesDB)[Math.floor(Math.random() * Object.keys(quotesDB).length)];
+            console.log('loadInitialQuotes called');
+            var randomBook = Object.keys(quotesDB)[Math.floor(Math.random() * Object.keys(quotesDB).length)];
+            console.log('Random book selected:', randomBook);
             currentSearchTerm = randomBook;
             loadQuotes();
         }
 
         function loadQuotes(refresh = false) {
-            const container = document.getElementById('quotesContainer');
+            var container = document.getElementById('quotesContainer');
+            if (!container) return;
             
-            container.innerHTML = `
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>Loading quotes...</p>
-                </div>
-            `;
+            if (refresh) {
+                totalLoadedCount = 0;
+                allLoadedQuotes = [];
+            }
+            
+            // Show loading
+            var loadingHtml = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
+            container.innerHTML = loadingHtml + container.querySelector('.load-more-container') ? container.querySelector('.load-more-container').outerHTML : '';
 
-            setTimeout(() => {
-                let quotes = [];
-                const searchTerm = currentSearchTerm.toLowerCase().trim();
+            setTimeout(function() {
+                try {
+                    var quotes = [];
+                    var searchTerm = (currentSearchTerm || '').toString().toLowerCase().trim();
+                    var keys = Object.keys(quotesDB);
+                    var matchingBooks = [];
 
-                if (searchTerm) {
-                    const matchingBooks = Object.keys(quotesDB).filter(book => 
-                        book.toLowerCase().includes(searchTerm)
-                    );
-
-                    if (matchingBooks.length > 0) {
-                        matchingBooks.forEach(book => {
-                            const bookQuotes = quotesDB[book].quotes[currentLanguage] || quotesDB[book].quotes.en;
-                            quotes.push(...bookQuotes.map(quote => ({
-                                text: quote,
-                                book: book,
-                                author: quotesDB[book].author
-                            })));
+                    if (searchTerm) {
+                        matchingBooks = keys.filter(function(book) {
+                            if (book.toLowerCase().indexOf(searchTerm) !== -1) return true;
+                            var titleEntry = bookTitlesDB[book];
+                            if (titleEntry) {
+                                if ((titleEntry.cn || '').toLowerCase().indexOf(searchTerm) !== -1) return true;
+                                if ((titleEntry.en || '').toLowerCase().indexOf(searchTerm) !== -1) return true;
+                                if ((titleEntry.fr || '').toLowerCase().indexOf(searchTerm) !== -1) return true;
+                            }
+                            var quoteData = quotesDB[book].quotes || {};
+                            if ((quoteData.cn || []).some(function(q) { return q.toLowerCase().indexOf(searchTerm) !== -1; })) return true;
+                            if ((quoteData.en || []).some(function(q) { return q.toLowerCase().indexOf(searchTerm) !== -1; })) return true;
+                            if ((quoteData.fr || []).some(function(q) { return q.toLowerCase().indexOf(searchTerm) !== -1; })) return true;
+                            return false;
                         });
+                    } else {
+                        matchingBooks = keys;
                     }
-                } else {
-                    Object.keys(quotesDB).forEach(book => {
-                        const bookQuotes = quotesDB[book].quotes[currentLanguage] || quotesDB[book].quotes.en;
-                        quotes.push(...bookQuotes.map(quote => ({
-                            text: quote,
-                            book: book,
-                            author: quotesDB[book].author
-                        })));
+
+                    // Collect quotes
+                    matchingBooks.forEach(function(book) {
+                        var bookQuotes = quotesDB[book].quotes[currentLanguage] || quotesDB[book].quotes.en || [];
+                        bookQuotes.forEach(function(quote) {
+                            quotes.push({text: quote, book: book, author: quotesDB[book].author});
+                        });
                     });
-                }
 
-                if (quotes.length === 0) {
-                    container.innerHTML = `
-                        <div class="error">
-                            <h3>No quotes found</h3>
-                            <p>Try searching for a different book title or select a book from the list.</p>
-                        </div>
-                    `;
-                    return;
-                }
+                    if (quotes.length === 0) {
+                        var texts = uiTexts[currentLanguage] || uiTexts.en;
+                        container.innerHTML = '<div class="error"><h3>' + texts.noResultsTitle + '</h3><p>' + texts.noResultsText + '</p></div>';
+                        return;
+                    }
 
-                quotes = shuffleArray(quotes).slice(0, 10);
+                    // Shuffle
+                    for (var i = quotes.length - 1; i > 0; i--) {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        var temp = quotes[i];
+                        quotes[i] = quotes[j];
+                        quotes[j] = temp;
+                    }
+                    
+                    allLoadedQuotes = quotes;
+                    displayedQuotes = quotes.slice(0, 10);
+                    totalLoadedCount = 10;
 
-                if (!refresh) {
-                    displayedQuotes = quotes;
-                } else {
-                    displayedQuotes = quotes;
-                }
+                    // Build intro if single book match
+                    var introHTML = '';
+                    if (matchingBooks.length === 1 && searchTerm) {
+                        var intro = bookIntrosDB[matchingBooks[0]];
+                        if (intro) {
+                            var introText = intro[currentLanguage] || intro.en;
+                            var bookTitle = bookTitlesDB[matchingBooks[0]] ? bookTitlesDB[matchingBooks[0]][currentLanguage] : matchingBooks[0];
+                            introHTML = '<div class="book-intro"><h2>' + bookTitle + '</h2><p>' + introText + '</p></div>';
+                        }
+                    }
 
-                container.innerHTML = `
-                    <div class="quotes-grid">
-                        ${displayedQuotes.map((quote, index) => `
-                            <div class="quote-card" style="animation-delay: ${index * 100}ms" onclick="openPostcard(${index})">
-                                <p class="quote-text">${quote.text}</p>
-                                <div class="quote-meta">
-                                    <span class="quote-book">${quote.book}</span>
-                                    <span class="quote-author">— ${quote.author}</span>
-                                </div>
-                                <p class="click-hint">Click to create postcard</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-
-                setTimeout(() => {
-                    document.querySelectorAll('.quote-card').forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('visible');
-                        }, index * 100);
+                    // Build quotes grid
+                    var quotesHtml = '';
+                    displayedQuotes.forEach(function(quote, index) {
+                        var bookTitle = bookTitlesDB[quote.book] ? bookTitlesDB[quote.book][currentLanguage] : quote.book;
+                        quotesHtml += '<div class="quote-card" style="opacity:0; transform:translateY(15px); transition: opacity 0.5s ease, transform 0.5s ease;" onclick="openPostcard(' + index + ')">';
+                        quotesHtml += '<p class="quote-text">' + quote.text + '</p>';
+                        quotesHtml += '<div class="quote-meta"><span class="quote-book">' + bookTitle + '</span><span class="quote-author">— ' + quote.author + '</span></div>';
+                        quotesHtml += '</div>';
                     });
-                }, 100);
 
-            }, 500);
+                    // Load more button
+                    var loadMoreHtml = '';
+                    if (allLoadedQuotes.length > totalLoadedCount) {
+                        loadMoreHtml = '<div class="load-more-container"><button class="load-more-btn" onclick="loadMoreQuotes()"><span class="load-more-text">Load more quotes</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></button></div>';
+                    }
+
+                    container.innerHTML = introHTML + '<div class="quotes-grid">' + quotesHtml + '</div>' + loadMoreHtml;
+
+                    // Animate quotes in
+                    setTimeout(function() {
+                        var cards = container.querySelectorAll('.quote-card');
+                        cards.forEach(function(card, i) {
+                            setTimeout(function() {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, i * 100);
+                        });
+                    }, 100);
+
+                } catch (e) {
+                    console.error('Error loading quotes:', e);
+                    container.innerHTML = '<div class="error"><h3>Error</h3><p>Something went wrong.</p></div>';
+                }
+            }, 50);
+        }
+
+        function loadMoreQuotes() {
+            var container = document.getElementById('quotesContainer');
+            var grid = container.querySelector('.quotes-grid');
+            var loadMoreContainer = container.querySelector('.load-more-container');
+            
+            var nextQuotes = allLoadedQuotes.slice(totalLoadedCount, totalLoadedCount + 10);
+            
+            nextQuotes.forEach(function(quote, index) {
+                var bookTitle = bookTitlesDB[quote.book] ? bookTitlesDB[quote.book][currentLanguage] : quote.book;
+                var card = document.createElement('div');
+                card.className = 'quote-card';
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.setAttribute('onclick', 'openPostcard(' + (totalLoadedCount + index) + ')');
+                card.innerHTML = '<p class="quote-text">' + quote.text + '</p><div class="quote-meta"><span class="quote-book">' + bookTitle + '</span><span class="quote-author">— ' + quote.author + '</span></div>';
+                grid.appendChild(card);
+                
+                setTimeout(function() {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+            
+            totalLoadedCount += nextQuotes.length;
+            displayedQuotes = displayedQuotes.concat(nextQuotes);
+            
+            // Update or remove load more button
+            if (allLoadedQuotes.length > totalLoadedCount) {
+                loadMoreContainer.innerHTML = '<button class="load-more-btn" onclick="loadMoreQuotes()"><span class="load-more-text">Load more quotes</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></button>';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
         }
 
         function shuffleArray(array) {
@@ -2995,9 +4071,43 @@
             alert('Save image feature coming soon!');
         }
 
+        // Lane-based placement to avoid overlaps
+        const floatingLanes = [];
+        const LANE_COUNT = 20;
+        
+        function initFloatingLanes() {
+            for (let i = 0; i < LANE_COUNT; i++) {
+                floatingLanes.push({
+                    y: (i / LANE_COUNT) * 100,
+                    occupied: false,
+                    lastUsed: 0
+                });
+            }
+        }
+
+        function getAvailableLane() {
+            const now = Date.now();
+            const available = floatingLanes.filter(lane => 
+                !lane.occupied || (now - lane.lastUsed > 6000)
+            );
+            if (available.length === 0) return null;
+            
+            // Pick a random available lane
+            const lane = available[Math.floor(Math.random() * available.length)];
+            lane.occupied = true;
+            lane.lastUsed = now;
+            
+            // Mark as unoccupied after animation completes
+            setTimeout(() => { lane.occupied = false; }, 12000);
+            
+            return lane;
+        }
+
         function createFloatingTitle() {
             const container = document.getElementById('floatingTitles');
             if (!container) return;
+
+            const lane = getAvailableLane();
 
             const titles = floatingTitlesDB[currentLanguage];
             const title = titles[Math.floor(Math.random() * titles.length)];
@@ -3007,18 +4117,32 @@
             element.className = 'floating-title' + (direction === 'down' ? ' down' : '');
             element.textContent = title;
             
-            const leftPercent = Math.random() * 95;
-            const fontSize = Math.random() * 4 + 3;
-            const rotation = Math.random() * 30 - 15;
-            const maxOpacity = Math.random() * 0.3 + 0.3;
+            // Random vertical position across full height
+            const topPercent = Math.random() * 85 + 5;
+            
+            // Smaller, more varied font sizes
+            const fontSizes = [1.8, 2.2, 2.6, 3.0, 3.5, 4.0, 4.5];
+            const fontSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+            
+            const rotation = (Math.random() - 0.5) * 16;
+            const maxOpacity = Math.random() * 0.15 + 0.15; // 0.15-0.30, more subtle
+            const drift = (Math.random() - 0.5) * 60; // horizontal drift in px
             const color = floatingColors[Math.floor(Math.random() * floatingColors.length)];
             
-            element.style.left = leftPercent + '%';
-            element.style.bottom = direction === 'up' ? '0px' : 'auto';
-            element.style.top = direction === 'down' ? '0px' : 'auto';
+            // Add some font style variation
+            if (Math.random() > 0.6) {
+                element.style.fontStyle = 'italic';
+            }
+            if (Math.random() > 0.8) {
+                element.style.fontWeight = '400';
+            }
+            
+            element.style.left = (Math.random() * 100) + '%';
+            element.style.top = topPercent + '%';
             element.style.fontSize = fontSize + 'rem';
             element.style.setProperty('--rotation', rotation + 'deg');
             element.style.setProperty('--max-opacity', maxOpacity);
+            element.style.setProperty('--drift', drift + 'px');
             element.style.color = color;
             
             container.appendChild(element);
@@ -3027,25 +4151,59 @@
                 if (element.parentNode) {
                     element.parentNode.removeChild(element);
                 }
-            }, 10000);
+            }, 12500);
         }
 
         function startFloatingTitles() {
-            createFloatingTitle();
-            createFloatingTitle();
-            createFloatingTitle();
+            initFloatingLanes();
+            
+            // Stagger initial titles
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => createFloatingTitle(), i * 200);
+            }
             
             floatingInterval = setInterval(() => {
-                const timeSinceLanguageChange = Date.now() - lastLanguageChange;
-                const interval = timeSinceLanguageChange < 2000 ? 300 : 800;
-                
                 createFloatingTitle();
             }, 800);
+        }
+
+        const headerLanes = [];
+        const HEADER_LANE_COUNT = 5;
+        let headerLanesInitialized = false;
+        
+        function initHeaderLanes() {
+            if (headerLanesInitialized) return;
+            headerLanesInitialized = true;
+            for (let i = 0; i < HEADER_LANE_COUNT; i++) {
+                headerLanes.push({
+                    x: (i / HEADER_LANE_COUNT) * 80 + 10,
+                    occupied: false,
+                    lastUsed: 0
+                });
+            }
+        }
+
+        function getAvailableHeaderLane() {
+            const now = Date.now();
+            const available = headerLanes.filter(lane => 
+                !lane.occupied || (now - lane.lastUsed > 5000)
+            );
+            if (available.length === 0) return null;
+            
+            const lane = available[Math.floor(Math.random() * available.length)];
+            lane.occupied = true;
+            lane.lastUsed = now;
+            setTimeout(() => { lane.occupied = false; }, 10000);
+            return lane;
         }
 
         function createHeaderFloatingTitle() {
             const container = document.getElementById('headerFloatingTitles');
             if (!container) return;
+
+            initHeaderLanes();
+            const lane = getAvailableHeaderLane();
+            if (!lane) return;
 
             const titles = headerFloatingTitlesDB[currentLanguage];
             const title = titles[Math.floor(Math.random() * titles.length)];
@@ -3063,13 +4221,23 @@
                 element.style.bottom = '0px';
             }
             
-            const leftPercent = Math.random() * 95;
-            const fontSize = Math.random() * 3 + 2;
-            const rotation = Math.random() * 20 - 10;
+            // Use lane x position with slight offset
+            const xOffset = (Math.random() - 0.5) * 10;
+            const leftPercent = lane.x + xOffset;
+            
+            const fontSizes = [1.2, 1.5, 1.8, 2.0, 2.3, 2.5];
+            const fontSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+            const rotation = (Math.random() - 0.5) * 14;
+            const drift = (Math.random() - 0.5) * 40;
+            
+            if (Math.random() > 0.5) {
+                element.style.fontStyle = 'italic';
+            }
             
             element.style.left = leftPercent + '%';
             element.style.fontSize = fontSize + 'rem';
             element.style.setProperty('--rotation', rotation + 'deg');
+            element.style.setProperty('--drift', drift + 'px');
             element.style.color = headerFloatingColors[Math.floor(Math.random() * headerFloatingColors.length)];
             
             container.appendChild(element);
@@ -3078,14 +4246,14 @@
                 if (element.parentNode) {
                     element.parentNode.removeChild(element);
                 }
-            }, 8000);
+            }, 10500);
         }
 
         function startHeaderFloatingTitles() {
-            for (let i = 0; i < 6; i++) {
-                setTimeout(() => createHeaderFloatingTitle(), i * 300);
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => createHeaderFloatingTitle(), i * 500);
             }
-            setInterval(() => createHeaderFloatingTitle(), 1000);
+            setInterval(() => createHeaderFloatingTitle(), 2500); // Slower rate: 2.5s instead of 1s
         }
 
         document.addEventListener('keydown', (e) => {
