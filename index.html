@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Quotes Search</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,42 +13,58 @@
         }
 
         :root {
-            --gradient-start: #667eea;
-            --gradient-end: #f093fb;
-            --coral: #ff6b6b;
-            --teal: #4ecdc4;
-            --yellow: #ffe66d;
-            --mint: #95e1d3;
-            --salmon: #f38181;
-            --lavender: #aa96da;
-            --pink: #fcbad3;
-            --sky-blue: #a8d8ea;
+            --gradient-start: #3b4a7a;
+            --gradient-end: #6b7ba8;
+            --coral: #c97070;
+            --teal: #5a9e96;
+            --yellow: #c4a94d;
+            --mint: #5fa882;
+            --salmon: #b87580;
+            --lavender: #8a7db8;
+            --pink: #b07a9a;
+            --sky-blue: #7aa0c0;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: 20px;
+            --text-primary: rgba(255, 255, 255, 0.88);
+            --text-secondary: rgba(255, 255, 255, 0.55);
+            --text-muted: rgba(255, 255, 255, 0.35);
+            --shadow-color: rgba(0, 0, 0, 0.25);
         }
 
         body {
             font-family: 'Merriweather', serif;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 40%, #2d1b4e 70%, #1a0a2e 100%);
+            background: linear-gradient(160deg, #0a0e1a 0%, #0f1628 30%, #131d35 55%, #0d1220 80%, #080b14 100%);
             background-attachment: fixed;
             color: #e0e0e0;
             min-height: 100vh;
             line-height: 1.7;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         header {
             text-align: center;
             margin-bottom: 50px;
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-            padding: 60px 40px;
-            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(40, 55, 95, 0.4) 0%, rgba(30, 42, 78, 0.6) 40%, rgba(20, 30, 60, 0.75) 100%);
+            padding: 70px 50px 40px;
+            border-radius: 24px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 25px 80px rgba(30, 40, 80, 0.2), 0 0 0 1px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
         }
 
         header::before {
@@ -58,7 +74,10 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(255,255,255,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);
             animation: float 15s ease-in-out infinite;
         }
 
@@ -68,7 +87,7 @@
             top: 20px;
             left: 30px;
             font-size: 2rem;
-            color: rgba(255,255,255,0.5);
+            color: rgba(138, 125, 184, 0.35);
             animation: sparkle 3s ease-in-out infinite;
         }
 
@@ -85,7 +104,7 @@
         .header-decoration {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
         }
 
         .header-decoration:nth-child(1) {
@@ -280,23 +299,31 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
             color: white;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            text-shadow: 2px 4px 20px rgba(0,0,0,0.2);
+            margin-bottom: 0;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow: 2px 4px 20px rgba(0,0,0,0.3);
             position: relative;
             z-index: 1;
+            background: linear-gradient(135deg, #c8d0e8 0%, #a0aec8 50%, #7b8ab0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .subtitle {
             font-family: 'Merriweather', serif;
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
             font-style: italic;
             position: relative;
             z-index: 1;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 0;
         }
 
         .controls {
@@ -305,13 +332,15 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 16px;
+            padding: 0;
+            background: transparent;
+            backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         .search-box {
@@ -325,22 +354,23 @@
 
         .search-box input {
             width: 100%;
-            padding: 16px 24px 16px 50px;
+            padding: 16px 24px 16px 44px;
             font-family: 'Courier New', monospace;
-            font-size: 1.05rem;
-            letter-spacing: 0.5px;
+            font-size: 1rem;
+            letter-spacing: 1px;
             border: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
             border-radius: 0;
             outline: none;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             background: transparent;
             color: white;
             caret-color: transparent;
         }
 
         .search-box input:focus {
-            border-bottom-color: rgba(170, 150, 218, 0.8);
+            border-bottom-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
         }
 
         .search-box input::placeholder {
@@ -349,28 +379,27 @@
         }
 
         .search-box::before {
-            content: '>';
+            content: '⌕';
             position: absolute;
-            left: 20px;
+            left: 18px;
             top: 50%;
             transform: translateY(-50%);
-            font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
-            color: rgba(170, 150, 218, 0.7);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.4);
             z-index: 1;
             pointer-events: none;
         }
 
         .typewriter-cursor {
             position: absolute;
-            left: 50px;
+            left: 44px;
             top: 50%;
             transform: translateY(-50%);
             width: 0;
             height: 0;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-top: 8px solid rgba(170, 150, 218, 0.9);
+            border-top: 8px solid rgba(255, 255, 255, 0.7);
             transition: left 0.05s linear;
             pointer-events: none;
             z-index: 0;
@@ -385,12 +414,12 @@
         }
 
         @keyframes cursorBlink {
-            0%, 50% { opacity: 1; border-top-color: rgba(170, 150, 218, 1); }
-            51%, 100% { opacity: 0.3; border-top-color: rgba(170, 150, 218, 0.5); }
+            0%, 50% { opacity: 1; border-top-color: rgba(255, 255, 255, 0.9); }
+            51%, 100% { opacity: 0.3; border-top-color: rgba(255, 255, 255, 0.3); }
         }
 
         .search-box input.typing {
-            border-bottom-color: rgba(170, 150, 218, 0.5);
+            border-bottom-color: rgba(255, 255, 255, 0.4);
         }
 
         
@@ -398,17 +427,18 @@
         .lang-selector {
             display: flex;
             gap: 0;
-            border-radius: 25px;
+            border-radius: 28px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
         }
 
         .lang-selector button {
-            padding: 14px 20px;
+            padding: 14px 24px;
             font-family: 'Merriweather', serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
             border: none;
             background: transparent;
             color: rgba(255, 255, 255, 0.6);
@@ -428,6 +458,8 @@
         .lang-selector button.active {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             color: white;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(59, 74, 122, 0.3);
         }
 
         .book-list-header {
@@ -446,29 +478,28 @@
         }
 
         .refresh-books-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.5);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .refresh-books-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
             transform: rotate(180deg);
-            border-color: rgba(170, 150, 218, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .refresh-books-btn:active {
-            transform: rotate(360deg) scale(0.9);
+            transform: rotate(360deg) scale(0.85);
         }
 
         .book-list {
@@ -481,12 +512,14 @@
         }
 
         .book-tag {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 25px;
+            border-radius: 30px;
             font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             color: rgba(255, 255, 255, 0.75);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -498,12 +531,12 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
         
-        .book-tag:nth-child(6n+1):hover { border-color: var(--coral); background: rgba(255, 107, 107, 0.25); color: white; }
-        .book-tag:nth-child(6n+2):hover { border-color: var(--teal); background: rgba(78, 205, 196, 0.25); color: white; }
-        .book-tag:nth-child(6n+3):hover { border-color: var(--yellow); background: rgba(254, 202, 87, 0.25); color: #333; }
-        .book-tag:nth-child(6n+4):hover { border-color: var(--mint); background: rgba(149, 225, 211, 0.25); color: #333; }
-        .book-tag:nth-child(6n+5):hover { border-color: var(--salmon); background: rgba(255, 159, 128, 0.25); color: white; }
-        .book-tag:nth-child(6n+6):hover { border-color: var(--lavender); background: rgba(170, 150, 218, 0.25); color: white; }
+        .book-tag:nth-child(6n+1):hover { border-color: var(--coral); background: rgba(248, 113, 113, 0.2); color: white; box-shadow: 0 4px 20px rgba(248, 113, 113, 0.2); }
+        .book-tag:nth-child(6n+2):hover { border-color: var(--teal); background: rgba(45, 212, 191, 0.2); color: white; box-shadow: 0 4px 20px rgba(45, 212, 191, 0.2); }
+        .book-tag:nth-child(6n+3):hover { border-color: var(--yellow); background: rgba(251, 191, 36, 0.2); color: #333; box-shadow: 0 4px 20px rgba(251, 191, 36, 0.2); }
+        .book-tag:nth-child(6n+4):hover { border-color: var(--mint); background: rgba(52, 211, 153, 0.2); color: #333; box-shadow: 0 4px 20px rgba(52, 211, 153, 0.2); }
+        .book-tag:nth-child(6n+5):hover { border-color: var(--salmon); background: rgba(251, 113, 133, 0.2); color: white; box-shadow: 0 4px 20px rgba(251, 113, 133, 0.2); }
+        .book-tag:nth-child(6n+6):hover { border-color: var(--lavender); background: rgba(167, 139, 250, 0.2); color: white; box-shadow: 0 4px 20px rgba(167, 139, 250, 0.2); }
 
         .quotes-grid {
             display: grid;
@@ -518,13 +551,12 @@
         }
 
         .book-intro {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 24px 30px;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            animation: fadeInUp 0.6s ease-out;
         }
 
         .book-intro h2 {
@@ -557,19 +589,15 @@
         }
 
         .quote-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 30px;
-            border-left: 6px solid;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            transform: translateY(20px);
-            cursor: pointer;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.035);
+            backdrop-filter: blur(6px);
+            border-radius: 20px;
+            border-left: 4px solid;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .quote-card::before {
@@ -582,6 +610,17 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
+        }
+
+        .quote-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .quote-card:nth-child(8n+1) { border-left-color: var(--coral); }
@@ -599,17 +638,17 @@
         }
 
         .quote-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-6px) scale(1.02);
         }
 
-        .quote-card:nth-child(8n+1):hover { box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3); }
-        .quote-card:nth-child(8n+2):hover { box-shadow: 0 15px 40px rgba(78, 205, 196, 0.3); }
-        .quote-card:nth-child(8n+3):hover { box-shadow: 0 15px 40px rgba(255, 230, 109, 0.3); }
-        .quote-card:nth-child(8n+4):hover { box-shadow: 0 15px 40px rgba(149, 225, 211, 0.3); }
-        .quote-card:nth-child(8n+5):hover { box-shadow: 0 15px 40px rgba(243, 129, 129, 0.3); }
-        .quote-card:nth-child(8n+6):hover { box-shadow: 0 15px 40px rgba(170, 150, 218, 0.3); }
-        .quote-card:nth-child(8n+7):hover { box-shadow: 0 15px 40px rgba(252, 186, 211, 0.3); }
-        .quote-card:nth-child(8n+8):hover { box-shadow: 0 15px 40px rgba(168, 216, 234, 0.3); }
+        .quote-card:nth-child(8n+1):hover { box-shadow: 0 20px 60px rgba(248, 113, 113, 0.2); }
+        .quote-card:nth-child(8n+2):hover { box-shadow: 0 20px 60px rgba(45, 212, 191, 0.2); }
+        .quote-card:nth-child(8n+3):hover { box-shadow: 0 20px 60px rgba(251, 191, 36, 0.2); }
+        .quote-card:nth-child(8n+4):hover { box-shadow: 0 20px 60px rgba(52, 211, 153, 0.2); }
+        .quote-card:nth-child(8n+5):hover { box-shadow: 0 20px 60px rgba(251, 113, 133, 0.2); }
+        .quote-card:nth-child(8n+6):hover { box-shadow: 0 20px 60px rgba(167, 139, 250, 0.2); }
+        .quote-card:nth-child(8n+7):hover { box-shadow: 0 20px 60px rgba(244, 114, 182, 0.2); }
+        .quote-card:nth-child(8n+8):hover { box-shadow: 0 20px 60px rgba(125, 211, 252, 0.2); }
 
         .quote-card:hover::before {
             opacity: 1;
@@ -617,22 +656,23 @@
 
         .quote-text {
             font-family: 'Merriweather', serif;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-style: italic;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.92);
             margin-bottom: 20px;
-            line-height: 1.8;
+            line-height: 2;
             position: relative;
+            letter-spacing: 0.3px;
         }
 
         .quote-text::before {
             content: '"';
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: 5rem;
             position: absolute;
-            top: -25px;
-            left: -5px;
-            opacity: 0.2;
+            top: -30px;
+            left: -8px;
+            opacity: 0.12;
         }
 
         .quote-card:nth-child(8n+1) .quote-text::before { color: var(--coral); }
@@ -649,7 +689,7 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .quote-book {
@@ -688,12 +728,12 @@
         }
 
         .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid #e8e2dc;
-            border-top-color: var(--gradient-start);
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255,255,255,0.06);
+            border-top-color: var(--lavender);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
             margin: 0 auto 20px;
         }
 
@@ -712,26 +752,27 @@
         }
 
         .load-more-btn {
-            padding: 14px 30px;
+            padding: 16px 36px;
             font-family: 'Merriweather', serif;
-            font-size: 0.95rem;
-            border: 1px solid rgba(170, 150, 218, 0.5);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 30px;
-            background: rgba(102, 126, 234, 0.2);
-            backdrop-filter: blur(10px);
+            background: rgba(59, 74, 122, 0.15);
             color: rgba(255, 255, 255, 0.9);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
             gap: 10px;
         }
 
         .load-more-btn:hover {
-            background: rgba(102, 126, 234, 0.4);
-            border-color: rgba(170, 150, 218, 0.8);
+            background: rgba(59, 74, 122, 0.3);
+            border-color: rgba(138, 125, 184, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 30px rgba(59, 74, 122, 0.2);
         }
 
         .load-more-btn:active {
@@ -741,8 +782,8 @@
         .error {
             text-align: center;
             padding: 60px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(6px);
             border-radius: 16px;
         }
 
@@ -775,14 +816,17 @@
 
         footer {
             text-align: center;
-            margin-top: 60px;
-            padding: 30px;
-            color: #999;
-            font-size: 0.9rem;
+            margin-top: 80px;
+            padding: 40px 30px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         footer a {
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            background: linear-gradient(135deg, var(--lavender) 0%, var(--sky-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -796,11 +840,11 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px) scale(0.98);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -811,7 +855,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(6px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -831,12 +875,12 @@
             max-width: 95vw;
             height: 400px;
             max-height: 90vh;
-            border-radius: 20px;
+            border-radius: 24px;
             position: relative;
             overflow: hidden;
             transform: scale(0.8);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.08);
         }
 
         .modal-overlay.active .postcard {
@@ -894,9 +938,10 @@
             font-style: italic;
             color: white;
             text-shadow: 2px 4px 20px rgba(0,0,0,0.3);
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 30px;
             max-width: 90%;
+            letter-spacing: 0.5px;
         }
 
         .postcard-info {
@@ -927,7 +972,7 @@
             position: absolute;
             width: 60px;
             height: 60px;
-            border: 3px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .postcard-corner.top-left {
@@ -968,13 +1013,15 @@
             right: 80px;
             width: 50px;
             height: 60px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1.5rem;
             transform: rotate(15deg);
+            backdrop-filter: blur(4px);
         }
 
         .postcard-buttons {
@@ -988,19 +1035,21 @@
         }
 
         .postcard-btn {
-            padding: 12px 30px;
+            padding: 14px 36px;
             font-family: 'Merriweather', serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            font-weight: 600;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .postcard-btn.close {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
@@ -1012,24 +1061,339 @@
         .postcard-btn.download {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 20px rgba(59, 74, 122, 0.35), inset 0 1px 0 rgba(255,255,255,0.15);
         }
 
         .postcard-btn.download:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 8px 30px rgba(59, 74, 122, 0.45), inset 0 1px 0 rgba(255,255,255,0.2);
         }
 
         .modal-container {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        @media (max-width: 640px) {
-            h1 { font-size: 2rem; }
-            .postcard { height: 350px; }
-            .postcard-quote { font-size: 1.3rem; }
-            .postcard-book { font-size: 1rem; }
-            .postcard-author { font-size: 0.85rem; }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 12px;
+            }
+
+            header {
+                padding: 50px 24px 28px;
+                border-radius: 18px;
+                gap: 22px;
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                letter-spacing: 3px;
+            }
+
+            .subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 2px;
+            }
+
+            .controls {
+                gap: 14px;
+            }
+
+            .search-box {
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            .search-box input {
+                padding: 14px 16px 14px 40px;
+                font-size: 0.9rem;
+            }
+
+            .search-box::before {
+                left: 14px;
+            }
+
+            .typewriter-cursor {
+                left: 40px;
+            }
+
+            .lang-selector {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .lang-selector button {
+                padding: 12px 16px;
+                font-size: 0.8rem;
+                flex: 1;
+            }
+
+            .book-list-header {
+                margin-bottom: 14px;
+            }
+
+            .book-list-header h3 {
+                font-size: 1rem;
+            }
+
+            .book-list {
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+
+            .book-tag {
+                padding: 7px 14px;
+                font-size: 0.78rem;
+            }
+
+            .quotes-grid {
+                gap: 16px;
+            }
+
+            .quote-card {
+                padding: 24px 20px;
+                border-left-width: 3px;
+                border-radius: 16px;
+            }
+
+            .quote-text {
+                font-size: 0.95rem;
+                line-height: 1.8;
+            }
+
+            .quote-text::before {
+                font-size: 3.5rem;
+                top: -22px;
+                left: -5px;
+            }
+
+            .quote-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .quote-book {
+                font-size: 0.88rem;
+            }
+
+            .quote-author {
+                font-size: 0.8rem;
+            }
+
+            .book-intro {
+                padding: 18px 20px;
+                border-radius: 16px;
+            }
+
+            .book-intro h2 {
+                font-size: 1.2rem;
+            }
+
+            .book-intro p {
+                font-size: 0.88rem;
+                line-height: 1.7;
+            }
+
+            .load-more-btn {
+                padding: 12px 24px;
+                font-size: 0.85rem;
+            }
+
+            #quotesContainer {
+                padding: 40px 12px 12px;
+            }
+
+            footer {
+                margin-top: 40px;
+                padding: 30px 16px;
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+
+            .postcard {
+                height: 320px;
+                border-radius: 18px;
+            }
+
+            .postcard-quote {
+                font-size: 1.15rem;
+                line-height: 1.5;
+            }
+
+            .postcard-book {
+                font-size: 0.9rem;
+            }
+
+            .postcard-author {
+                font-size: 0.78rem;
+            }
+
+            .postcard-content {
+                padding: 28px 20px;
+            }
+
+            .postcard-info {
+                bottom: 28px;
+            }
+
+            .postcard-corner {
+                width: 40px;
+                height: 40px;
+            }
+
+            .postcard-corner.top-left,
+            .postcard-corner.top-right { top: 14px; }
+            .postcard-corner.bottom-left,
+            .postcard-corner.bottom-right { bottom: 14px; }
+            .postcard-corner.top-left,
+            .postcard-corner.bottom-left { left: 14px; }
+            .postcard-corner.top-right,
+            .postcard-corner.bottom-right { right: 14px; }
+
+            .postcard-stamp {
+                top: 22px;
+                right: 60px;
+                width: 40px;
+                height: 48px;
+                font-size: 1.2rem;
+            }
+
+            .postcard-btn {
+                padding: 12px 24px;
+                font-size: 0.85rem;
+            }
+
+            .modal-overlay {
+                padding: 12px;
+            }
+
+            .postcard-buttons {
+                position: static;
+                margin-top: 16px;
+                justify-content: center;
+            }
+
+            .postcard-btn {
+                flex: 1;
+                max-width: 160px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            header {
+                padding: 40px 16px 22px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+
+            .subtitle {
+                font-size: 0.65rem;
+                letter-spacing: 1px;
+            }
+
+            .search-box input {
+                padding: 12px 12px 12px 36px;
+                font-size: 0.85rem;
+            }
+
+            .search-box::before {
+                left: 10px;
+                font-size: 0.95rem;
+            }
+
+            .typewriter-cursor {
+                left: 36px;
+            }
+
+            .lang-selector button {
+                padding: 10px 10px;
+                font-size: 0.75rem;
+            }
+
+            .book-tag {
+                padding: 6px 11px;
+                font-size: 0.72rem;
+            }
+
+            .quote-card {
+                padding: 20px 16px;
+            }
+
+            .quote-text {
+                font-size: 0.88rem;
+                line-height: 1.7;
+            }
+
+            .postcard {
+                height: 280px;
+                border-radius: 14px;
+            }
+
+            .postcard-quote {
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+
+            .postcard-btn {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+            }
+
+            .modal-overlay {
+                padding: 8px;
+            }
+
+            .postcard-buttons {
+                position: static;
+                margin-top: 12px;
+            }
+
+            .postcard-btn {
+                flex: 1;
+                padding: 14px 16px;
+                font-size: 0.88rem;
+            }
+        }
+
+        /* Focus visible for accessibility */
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid rgba(138, 125, 184, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.25);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(100, 115, 160, 0.25);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 115, 160, 0.4);
+        }
+
+        /* Selection color */
+        ::selection {
+            background: rgba(138, 125, 184, 0.25);
+            color: white;
+        }
+
+        /* Enhanced error/no-results */
+        .error, .no-results {
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
     </style>
 </head>
@@ -1044,27 +1408,28 @@
             <div class="header-decoration"></div>
             <h1>Book Quotes</h1>
             <p class="subtitle">Discover wisdom from the world's greatest literature</p>
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search by book title...">
+                    <span class="typewriter-cursor"></span>
+                </div>
+                
+                <div class="lang-selector">
+                    <button data-lang="cn" onclick="setLanguage('cn')">中文</button>
+                    <button data-lang="en" class="active" onclick="setLanguage('en')">English</button>
+                    <button data-lang="fr" onclick="setLanguage('fr')">Français</button>
+                </div>
+            </div>
         </header>
-
-        <div class="controls">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search by book title...">
-                <span class="typewriter-cursor"></span>
-            </div>
-            
-            <div class="lang-selector">
-                <button data-lang="cn" onclick="setLanguage('cn')">中文</button>
-                <button data-lang="en" class="active" onclick="setLanguage('en')">English</button>
-                <button data-lang="fr" onclick="setLanguage('fr')">Français</button>
-            </div>
-        </div>
 
         <div class="book-list-header">
             <h3>Books</h3>
-            <button class="refresh-books-btn" onclick="refreshBookList()" title="Refresh book list">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M23 4v6h-6M1 20v-6h6"/>
-                    <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+            <button class="refresh-books-btn" onclick="refreshBookList()" title="Refresh">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 2v6h-6"/>
+                    <path d="M3 12a9 9 0 0115.54-6.36L21 8"/>
+                    <path d="M3 22v-6h6"/>
+                    <path d="M21 12a9 9 0 01-15.54 6.36L3 16"/>
                 </svg>
             </button>
         </div>
@@ -1583,7 +1948,7 @@
                         "All words are nonsense, all tears are bitter. Everyone says the author is foolish, but who understands the taste?",
                         "When the false is taken as true, the true becomes false. When the non-existent is taken as existent, the existent is still nothing.",
                         "Clever calculations cause ruin; all schemes bring disaster in the end.",
-                        "The heart's illness must be cured by heart's medicine; the bell that tied the铃 must be untied by the one who tied it.",
+                        "The heart's illness must be cured by heart's medicine; the bell that was tied must be untied by the one who tied it.",
                         "Women are made of water, men are made of mud.",
                         "Understanding the ways of the world is learning; being skilled in human relations is writing.",
                         "When there is still plenty left, one forgets to pull back; only when there is no road ahead does one want to turn back.",
@@ -1669,9 +2034,9 @@
                         "Now the old man has the fish to himself, and he doesn't think of anything.",
                         "You kill the fish for his glory, because you are a fisherman.",
                         "Man is not made for defeat. A man can be destroyed but not defeated.",
-                        "I hate抽筋, nothing is worse than this.",
+                        "I hate cramps, nothing is worse than this.",
                         "He swims fast and deep.",
-                        "Only children care about抽筋."
+                        "Only children care about cramps."
                     ],
                     fr: [
                         "Un homme peut être détruit mais pas vaincu.",
@@ -2179,47 +2544,6 @@
                     ]
                 }
             },
-            "The Secret Garden": {
-                author: "Frances Hodgson Burnett",
-                quotes: {
-                    cn: [
-                        "如果你用正确的方式看，美丽无处不在。",
-                        "花园是一个神奇的地方，它能治愈所有的伤痛。",
-                        "有时候，当人们以为自己已经停止生长时，他们实际上正在开始新的生长。",
-                        "当你真正开始爱一样东西时，你会发现自己变得更加强大。",
-                        "秘密花园的秘密是：当你让它生长时，它也在让你生长。",
-                        "这个世界上有许多美丽的东西，只是我们常常忘记了去看。",
-                        "如果你对自己拥有的东西视而不见，你永远不会快乐。",
-                        "每一个孩子都需要一个属于他们的秘密地方。",
-                        "奇迹发生在我们最意想不到的时候。",
-                        "当你学会了与自然相处，你就学会了如何与自己相处。"
-                    ],
-                    en: [
-                        "If you look the right way, you can see that the whole world is a garden.",
-                        "The garden is a magical place that can heal all wounds.",
-                        "Sometimes when people are growing, they think they have stopped.",
-                        "When you begin to love something, you find yourself becoming stronger.",
-                        "The secret of the garden is that when you let it grow, it lets you grow too.",
-                        "There are many beautiful things in this world, we just forget to look.",
-                        "If you are blind to what you have, you will never be happy.",
-                        "Every child needs a secret place of their own.",
-                        "Miracles happen when we least expect them.",
-                        "When you learn to live with nature, you learn to live with yourself."
-                    ],
-                    fr: [
-                        "Si vous regardez de la bonne façon, vous pouvez voir que le monde entier est un jardin.",
-                        "Le jardin est un endroit magique qui peut guérir toutes les blessures.",
-                        "Parfois, quand les gens grandissent, ils pensent qu'ils ont cessé.",
-                        "Quand vous commencez à aimer quelque chose, vous vous découvrez plus fort.",
-                        "Le secret du jardin est que quand vous le laissez pousser, il vous laisse aussi pousser.",
-                        "Il y a beaucoup de belles choses dans ce monde, nous oublions juste de regarder.",
-                        "Si vous êtes aveugle à ce que vous avez, vous ne serez jamais heureux.",
-                        "Chaque enfant a besoin d'un endroit secret qui lui appartient.",
-                        "Les miracles arrivent quand nous les attendons le moins.",
-                        "Quand vous apprenez à vivre avec la nature, vous apprenez à vivre avec vous-même."
-                    ]
-                }
-            },
             "Moby-Dick": {
                 author: "Herman Melville",
                 quotes: {
@@ -2511,7 +2835,7 @@
                 author: "Fyodor Dostoevsky",
                 quotes: {
                     cn: [
-                        " beauty will save the world.",
+                        "美将拯救世界。",
                         "如果没有上帝，一切都是允许的。",
                         "我宁愿留在基督身边，而不是站在智者之中。",
                         "活着就是快乐，即使是在痛苦中活着。",
@@ -2545,47 +2869,6 @@
                         "Si un enfant meurt, tout le monde est faux.",
                         "La foi et le doute ont tous deux leur valeur.",
                         "Ce n'est que lorsque nous embrassons la souffrance que nous pouvons trouver le salut."
-                    ]
-                }
-            },
-            "The Stranger": {
-                author: "Albert Camus",
-                quotes: {
-                    cn: [
-                        "今天，死了。",
-                        "没有人能确定地生活在一个不确定的世界。",
-                        "我认为这意味着我已被判决。",
-                        "在母亲的葬礼上，我没有哭，这让我后来感到很奇怪。",
-                        "我们在这个世界上都是陌生人。",
-                        "幸福不是来自逃避责任，而是来自接受它们。",
-                        "生活是否有意义并不重要，重要的是我们如何生活。",
-                        "只有当我们停止问问题时，我们才会开始真正生活。",
-                        "在某种意义上，我是正确的，但这并不让我更快乐。",
-                        "荒谬是人生的本质。"
-                    ],
-                    en: [
-                        "Mother died today.",
-                        "No one can live for certain in an uncertain world.",
-                        "I think this means I have been judged.",
-                        "At mother's funeral, I didn't cry, which later made me feel strange.",
-                        "We are all strangers in this world.",
-                        "Happiness does not come from avoiding responsibilities but from accepting them.",
-                        "It doesn't matter if life has meaning, what matters is how we live.",
-                        "Only when we stop asking questions do we start truly living.",
-                        "In a way, I was right, but that didn't make me happier.",
-                        "The absurd is the essence of life."
-                    ],
-                    fr: [
-                        "Maman est morte aujourd'hui.",
-                        "Personne ne peut vivre pour certain dans un monde incertain.",
-                        "Je pense que cela signifie que j'ai été jugé.",
-                        "Aux funérailles de maman, je n'ai pas pleuré, ce qui m'a plus tard semblé étrange.",
-                        "Nous sommes tous des étrangers dans ce monde.",
-                        "Le bonheur ne vient pas d'éviter les responsabilités mais de les accepter.",
-                        "Peu importe si la vie a un sens, ce qui compte c'est comment nous живем.",
-                        "Ce n'est que lorsque nous cessons de poser des questions que nous commençons à vraiment vivre.",
-                        "D'une certaine manière, j'avais raison, mais cela ne me rendait pas plus heureux.",
-                        "L'absurde est l'essence de la vie."
                     ]
                 }
             },
@@ -2757,16 +3040,16 @@
                 author: "Kenneth Grahame",
                 quotes: {
                     cn: [
-                        "there is nothing - absolutely nothing - half so much worth doing as simply messing about in boats.",
-                        "The world is not boring because of how we look at it, but because of what we choose to see.",
-                        "Spring is the time of year when it is summer in the sun and winter in the shade.",
-                        "The river bank is a magical place where adventures happen.",
-                        "Home is not a place, it is a feeling.",
-                        "Friendship is the most precious thing in the world.",
-                        "When you are by the river, all your troubles seem to float away.",
-                        "The best things in life are often the simplest.",
-                        "Sometimes the most important journeys are the ones we take in our own minds.",
-                        "All that we see or seem is but a dream within a dream."
+                        "世上没有什么事——绝对没有——比在河上荡舟更值得做的了。",
+                        "世界并不无聊，不在于我们怎么看它，而在于我们选择看到什么。",
+                        "春天是一年中阳光下是夏天、树荫里是冬天的时节。",
+                        "河岸是一个充满魔法的地方，冒险就在这里发生。",
+                        "家不是一个地方，而是一种感觉。",
+                        "友谊是世界上最珍贵的东西。",
+                        "当你在河边时，所有的烦恼似乎都随水流走了。",
+                        "生活中最美好的事物往往是最简单的。",
+                        "有时最重要的旅程是我们自己心中进行的那些。",
+                        "我们所见或所是的一切，不过是梦中之梦。"
                     ],
                     en: [
                         "There is nothing - absolutely nothing - half so much worth doing as simply messing about in boats.",
@@ -3323,7 +3606,15 @@
             "Madame Bovary": { cn: "包法利夫人", en: "Madame Bovary", fr: "Madame Bovary" },
             "In Search of Lost Time": { cn: "追忆似水年华", en: "In Search of Lost Time", fr: "À la Recherche du Temps Perdu" },
             "Ulysses": { cn: "尤利西斯", en: "Ulysses", fr: "Ulysse" },
-            "Finnegans Wake": { cn: "芬尼根守灵夜", en: "Finnegans Wake", fr: "Finnegans Wake" }
+            "Finnegans Wake": { cn: "芬尼根守灵夜", en: "Finnegans Wake", fr: "Finnegans Wake" },
+            "The Sun Also Rises": { cn: "太阳照常升起", en: "The Sun Also Rises", fr: "Le Soleil se Lève Aussi" },
+            "A Clockwork Orange": { cn: "发条橙", en: "A Clockwork Orange", fr: "Orange Mécanique" },
+            "The Grapes of Wrath": { cn: "愤怒的葡萄", en: "The Grapes of Wrath", fr: "Les Raisins de la Colère" },
+            "Brave New World": { cn: "美丽新世界", en: "Brave New World", fr: "Le Meilleur des Mondes" },
+            "The Handmaid's Tale": { cn: "使女的故事", en: "The Handmaid's Tale", fr: "La Servante Écarlate" },
+            "The Great Expectations": { cn: "远大前程", en: "Great Expectations", fr: "Grandes Espérances" },
+            "Einstein's Dreams": { cn: "爱因斯坦的梦", en: "Einstein's Dreams", fr: "Les Rêves d'Einstein" },
+            "Norwegian Wood": { cn: "挪威的森林", en: "Norwegian Wood", fr: "Le Bois de Norvège" }
         };
 
         const bookIntrosDB = {
@@ -3365,7 +3656,7 @@
             "The Old Man and the Sea": {
                 cn: "老渔夫圣地亚哥已经84天没有捕到鱼了，但他依然坚持出海。终于，他钓到了一条巨大的马林鱼，一场人与鱼的史诗般的搏斗开始了。",
                 en: "The old fisherman Santiago has gone 84 days without catching a fish, but he persists. Finally, he hooks a giant marlin, and an epic battle between man and fish begins.",
-                fr: "Le vieux pêcheur Santiago n'a pas attrapé de poisson depuis 84 jours, mais il persiste. Enfin, il attrape un巨大 marlin, et une bataille épique entre l'homme et le poisson commence."
+                fr: "Le vieux pêcheur Santiago n'a pas attrapé de poisson depuis 84 jours, mais il persiste. Enfin, il attrape un énorme marlin, et une bataille épique entre l'homme et le poisson commence."
             },
             "Gone with the Wind": {
                 cn: "斯嘉丽·奥哈拉是美国南方种植园主的女儿，在战争和革命的动荡中，她从一个娇生惯养的小姐成长为坚强独立的女人。但她最爱的人瑞特·巴特勒船长却渐渐离她远去。",
@@ -3417,11 +3708,6 @@
                 en: "Meursault does not cry at his mother's funeral and later kills a man almost by accident. At his trial, the prosecutor condemns him for 'not crying at his mother's funeral,' and he is sentenced to death.",
                 fr: "Meursault ne pleure pas aux funérailles de sa mère et tue plus tard un homme presque par accident. Au procès, le procureur le condamne pour 'ne pas avoir pleuré aux funérailles de sa mère', et il est condamné à mort."
             },
-            "Brave New World": {
-                cn: "在一个通过基因工程和条件反射塑造公民的未来社会，福特纪元632年，伯纳·马克思来到美丽的保留区，带回了原始人约翰，却引发了一场文明与野蛮、自由与控制的激烈冲突。",
-                en: "In a future society where citizens are genetically engineered and conditioned, Bernard Marx brings 'the Savage' John back from a reservation, triggering a fierce clash between civilization and barbarism, freedom and control.",
-                fr: "Dans une société future où les citoyens sont génétiquement modifiés et conditionnés, Bernard Marx ramène 'le Sauvage' John d'une réserve, déclenchant un violent conflit entre civilisation et barbarie, liberté et contrôle."
-            },
             "The Secret Garden": {
                 cn: "任性的小女孩玛丽被送到约克郡的庄园，与瘫痪的表哥科林和热爱自然的男孩迪肯相遇。在一座被锁了十年的神秘花园里，她找到了生命的奇迹。",
                 en: "The spoiled Mary is sent to a Yorkshire manor, where she meets the paralyzed cousin Colin and the nature-loving Dickon. In a mysterious garden locked for ten years, she discovers the miracle of life.",
@@ -3449,7 +3735,7 @@
             },
             "The Catcher in the Rye": {
                 cn: "霍尔顿·考尔菲尔德是一个16岁的少年，他在纽约游荡了几天，讲述了他被学校开除后的心理历程。这部小说是美国文学的经典之作，深刻探讨了青春期的孤独、反叛和对虚伪社会的厌恶。",
-                en: "Holden Caulfield is a 16-year-old who wanders New York for days after being expelled from school, narrating his psychological journey. This novel is a classic of American literature, deeply exploring teenage loneliness, rebellion, and厌恶 of a phony society.",
+                en: "Holden Caulfield is a 16-year-old who wanders New York for days after being expelled from school, narrating his psychological journey. This novel is a classic of American literature, deeply exploring teenage loneliness, rebellion, and disgust at a phony society.",
                 fr: "Holden Caulfield est un adolescent de 16 ans qui erre à New York pendant quelques jours après avoir été renvoyé de son école, racontant son voyage psychologique. Ce roman est un classique de la littérature américaine, explorant profondément la solitude adolescente, la rébellion et l'aversion pour une société hypocrite."
             },
             "Frankenstein": {
@@ -3459,7 +3745,7 @@
             },
             "A Clockwork Orange": {
                 cn: "在未来的反乌托邦社会，少年艾力克斯带领一群小混混在街头作恶。他被捕后被迫接受政府的人格改造实验，试图通过条件反射消除他的暴力倾向。这是对自由意志与政府控制边界的深刻思考。",
-                en: "In a dystopian future, Alex leads a gang of混混 on violent rampages. After capture, he's subjected to government experiments attempting to eliminate his violent tendencies through conditioning. A profound meditation on free will and government control.",
+                en: "In a dystopian future, Alex leads a gang of thugs on violent rampages. After capture, he's subjected to government experiments attempting to eliminate his violent tendencies through conditioning. A profound meditation on free will and government control.",
                 fr: "Dans un avenir dystopique, Alex mène une bande de délinquants dans des rampages violents. Après sa capture, il est soumis à des expériences gouvernementales tentant d'éliminer ses tendances violentes par le conditionnement. Une profonde méditation sur la liberté et le contrôle gouvernemental."
             },
             "The Grapes of Wrath": {
@@ -3499,7 +3785,7 @@
             },
             "Romeo and Juliet": {
                 cn: "蒙太古家的罗密欧与凯普莱特大家的朱丽叶在舞会上一见钟情。但两个家族是世仇，他们的爱情注定是悲剧。在神父的帮助下他们秘密结婚，但一系列的误会最终导致两人殉情。",
-                en: "Romeo of the Montagues and Juliet of the Capulets fall in love at a ball. Their families are bitter enemies, making their love注定 to be tragic. With the friar's help they marry secretly, but a series of misunderstandings leads to their double suicide.",
+                en: "Romeo of the Montagues and Juliet of the Capulets fall in love at a ball. Their families are bitter enemies, making their love destined to be tragic. With the friar's help they marry secretly, but a series of misunderstandings leads to their double suicide.",
                 fr: "Roméo des Montaigu et Juliette des Capulet tombent amoureux à un bal. Leurs familles sont de ennemis jurés, rendant leur amour condamné à être tragique. Avec l'aide du prêtre, ils se marient secrètement, mais une série de malentendus mène à leur suicide double."
             },
             "A Midsummer Night's Dream": {
@@ -3554,7 +3840,7 @@
             },
             "Madame Bovary": {
                 cn: "农场主女儿艾玛·包法利嫁给平庸的医生查尔斯后，对平淡的生活感到厌倦。她开始追求浪漫和刺激，欠下巨额债务，最终在绝望中服毒自尽。这是 对浪漫主义幻想破灭的深刻批判。",
-                en: "Emma Bovary, daughter of a farmer, marries mediocre doctor Charles and grows bored with平淡 life. She pursues romance and excitement, accumulating huge debts, ultimately committing suicide by poisoning. A profound critique of romantic disillusionment.",
+                en: "Emma Bovary, daughter of a farmer, marries mediocre doctor Charles and grows bored with mundane life. She pursues romance and excitement, accumulating huge debts, ultimately committing suicide by poisoning. A profound critique of romantic disillusionment.",
                 fr: "Emma Bovary, fille d'un agriculteur, épouse le médecin médiocre Charles et se lasse de la vie terne. Elle poursuit le romantisme et l'excitation, accumulant d'énormes dettes, se suicidant finalement par empoisonnement. Une critique profonde du désillusionnement romantique."
             },
             "Ulysses": {
@@ -3589,8 +3875,43 @@
             },
             "Don Juan": {
                 cn: "拜伦爵士创作的长诗，讲述了唐璜这个风流成性的西班牙贵族的冒险故事。他从西班牙到希腊，从土耳其后宫到英国宫廷，用智慧和魅力征服了无数女性。",
-                en: "Lord Byron's epic poem tells of Don Juan's adventures as a风流 Spanish noble. From Spain to Greece, from Turkish harem to English court, he conquers countless women with wit and charm.",
+                en: "Lord Byron's epic poem tells of Don Juan's adventures as a libertine Spanish noble. From Spain to Greece, from Turkish harem to English court, he conquers countless women with wit and charm.",
                 fr: "L'épopée de Lord Byron raconte les aventures de Don Juan en tant que noble espagnol libertin. De l'Espagne à la Grèce, du harem turc à la cour anglaise, il conquiert d'innombrables femmes par l'esprit et le charme."
+            },
+            "Crime and Punishment": {
+                cn: "穷大学生拉斯柯尔尼科夫在贫困与绝望中犯下了谋杀罪行。他试图证明自己是超越道德的'超人'，却在良心与恐惧的折磨中挣扎。索尼娅的爱与信仰最终引领他走向救赎。",
+                en: "Poor student Raskolnikov commits a murder in poverty and desperation, attempting to prove he is an 'extraordinary man' above morality. As he struggles with guilt and fear, Sonya's love and faith ultimately lead him toward redemption.",
+                fr: "L'étudiant pauvre Raskolnikov commet un meurtre dans la pauvreté et le désespoir, tentant de prouver qu'il est un 'homme extraordinaire' au-dessus de la morale. Alors qu'il lutte contre la culpabilité et la peur, l'amour et la foi de Sonya le mènent finalement vers la rédemption."
+            },
+            "The Count of Monte Cristo": {
+                cn: "年轻水手爱德蒙·邓蒂斯在新婚之夜被奸人陷害，关入暗无天日的伊夫堡监狱。在狱中他得到法利亚神甫的指点，获得宝藏的秘密。越狱后他化身基督山伯爵，以财富和智慧对仇人展开精密的复仇。",
+                en: "Young sailor Edmond Dantès is betrayed on his wedding eve and imprisoned in the dark Château d'If. There he learns the secret of a vast treasure from Abbé Faria. After escaping, he becomes the Count of Monte Cristo and exacts elaborate revenge on his enemies.",
+                fr: "Le jeune marin Edmond Dantès est trahi la veille de son mariage et emprisonné dans le sombre Château d'If. Là, il apprend le secret d'un immense trésor de l'abbé Faria. Après s'être évadé, il devient le Comte de Monte-Cristo et tire une vengeance élaborée sur ses ennemis."
+            },
+            "Oliver Twist": {
+                cn: "孤儿奥利弗在济贫院的苦难生活中长大，被拐入伦敦的贼窝。在黑暗与罪恶的环境中，他始终保持着纯洁善良的心灵。最终在好心人的帮助下，他找到了真正的家庭和幸福。",
+                en: "Orphan Oliver Twist grows up in misery at the workhouse, then falls into the clutches of London's criminal underworld. Despite the darkness around him, he maintains his pure and gentle heart, ultimately finding a true family and happiness.",
+                fr: "L'orphelin Oliver Twist grandit dans la misère à l'oeuvre, puis tombe dans les griffes du monde criminel de Londres. Malgré l'obscurité qui l'entoure, il conserve son cœur pur et doux, trouvant finalement une véritable famille et le bonheur."
+            },
+            "David Copperfield": {
+                cn: "大卫·科波菲尔从小失去父亲，母亲改嫁后他受尽继父的虐待。在逆境中他始终怀揣希望，经历了人生的种种磨难与欢乐，最终成为一名成功的作家，找到了真爱与幸福。",
+                en: "David Copperfield loses his father young and suffers abuse from his stepfather after his mother remarries. Despite hardship, he holds on to hope, experiencing life's trials and joys, ultimately becoming a successful writer who finds true love and happiness.",
+                fr: "David Copperfield perd son père jeune et souffre des mauvais traitements de son beau-père après le remariage de sa mère. Malgré les épreuves, il garde espoir, traversant les épreuves et les joies de la vie, devenant finalement un écrivain à succès qui trouve le vrai amour et le bonheur."
+            },
+            "The Great Expectations": {
+                cn: "孤儿匹普从小由姐姐姐夫抚养长大，一心想成为上流社会的绅士。一个神秘的资助人让他如愿以偿来到伦敦，然而真正改变他命运的不是财富，而是一段纯真而深沉的爱情。",
+                en: "Orphan Pip is raised by his sister and brother-in-law, dreaming of becoming a gentleman. A mysterious benefactor sends him to London, but what truly changes his destiny is not wealth, but a pure and profound love.",
+                fr: "L'orphelin Pip est élevé par sa sœur et son beau-frère, rêvant de devenir gentleman. Un bienfaiteur mystérieux l'envoie à Londres, mais ce qui change vraiment son destin n'est pas la richesse, mais un amour pur et profond."
+            },
+            "Einstein's Dreams": {
+                cn: "这部小说以爱因斯坦1905年提出的相对论为灵感，描绘了三十多个关于时间本质的梦境。每个梦境呈现一种不同的时间哲学，探讨时间与记忆、爱情、家庭和人类存在的深层关系。",
+                en: "Inspired by Einstein's 1905 theory of relativity, this novel portrays over thirty dreams about the nature of time. Each dream presents a different philosophy of time, exploring its deep connections to memory, love, family, and human existence.",
+                fr: "Inspiré par la théorie de la relativité d'Einstein de 1905, ce roman peint plus de trente rêves sur la nature du temps. Chaque rêve présente une philosophie du temps différente, explorant ses liens profonds avec la mémoire, l'amour, la famille et l'existence humaine."
+            },
+            "Norwegian Wood": {
+                cn: "渡边彻在大学时代与两个女孩之间的情感纠葛。直子代表着过去的阴影与哀伤，绿子象征着生命的活力与希望。在青春与迷茫之间，他最终学会了如何面对失去与成长。",
+                en: "Toru Watanabe navigates emotional entanglements with two women during his college years. Naoko represents past shadows and sorrow, while Midori symbolizes life's vitality and hope. Between youth and confusion, he learns to face loss and growth.",
+                fr: "Toru Watanabe navigue dans les turbulences émotionnelles avec deux femmes pendant ses années universitaires. Naoko représente les ombres du passé et la tristesse, tandis que Midori symbolise la vitalité et l'espoir de la vie. Entre jeunesse et confusion, il apprend à affronter la perte et la croissance."
             }
         };
 
@@ -3636,42 +3957,42 @@
         const uiTexts = {
             cn: {
                 title: '书语',
-                subtitle: '发现世界文学的智慧',
-                searchPlaceholder: '按书名搜索...',
-                loading: '加载中...',
-                noResultsTitle: '未找到引言',
-                noResultsText: '尝试搜索其他书名或从列表中选择一本书。',
-                clickHint: '点击创建明信片',
-                refreshBtn: '换一批',
-                footer: '为全世界的书爱者而作',
-                close: '关闭',
-                download: '下载'
+                subtitle: '以文字为舟，渡万千书海',
+                searchPlaceholder: '输入书名，寻找共鸣...',
+                loading: '正在翻阅...',
+                noResultsTitle: '暂无回响',
+                noResultsText: '换个名字试试，每本书都藏着不同的灵魂。',
+                clickHint: '轻触，生成专属书签',
+                footer: '致每一位与书为伴的旅人',
+                close: '收起',
+                download: '保存',
+                loadMore: '还有更多'
             },
             en: {
                 title: 'Book Quotes',
-                subtitle: 'Discover wisdom from the world\'s greatest literature',
+                subtitle: 'Where words become worlds',
                 searchPlaceholder: 'Search by book title...',
-                loading: 'Loading quotes...',
-                noResultsTitle: 'No quotes found',
-                noResultsText: 'Try searching for a different book title or select a book from the list.',
-                clickHint: 'Click to create postcard',
-                refreshBtn: 'New Quotes',
-                footer: 'Made with love for book lovers everywhere',
+                loading: 'Turning pages...',
+                noResultsTitle: 'No echoes found',
+                noResultsText: 'Try another name — every book holds a different soul.',
+                clickHint: 'Tap to create a postcard',
+                footer: 'For every soul who finds solace in books',
                 close: 'Close',
-                download: 'Download'
+                download: 'Save',
+                loadMore: 'Discover more'
             },
             fr: {
-                title: 'Citations de Livres',
-                subtitle: 'Découvrez la sagesse de la littérature mondiale',
-                searchPlaceholder: 'Rechercher par titre...',
-                loading: 'Chargement...',
-                noResultsTitle: 'Aucune citation trouvée',
-                noResultsText: 'Essayez de rechercher un autre titre ou sélectionnez un livre dans la liste.',
-                clickHint: 'Cliquez pour créer une carte',
-                refreshBtn: 'Nouvelles Citations',
-                footer: 'Fait avec amour pour les amoureux des livres',
+                title: 'Citations',
+                subtitle: 'Là où les mots deviennent des mondes',
+                searchPlaceholder: 'Rechercher un titre...',
+                loading: 'On tourne les pages...',
+                noResultsTitle: 'Aucun écho trouvé',
+                noResultsText: 'Essayez un autre titre — chaque livre recèle une âme différente.',
+                clickHint: 'Appuyez pour créer une carte',
+                footer: 'Pour chaque âme qui trouve refuge dans les livres',
                 close: 'Fermer',
-                download: 'Télécharger'
+                download: 'Sauvegarder',
+                loadMore: 'Découvrir plus'
             }
         };
 
@@ -3827,7 +4148,7 @@
             document.querySelector('h1').textContent = texts.title;
             document.querySelector('.subtitle').textContent = texts.subtitle;
             document.getElementById('searchInput').placeholder = texts.searchPlaceholder;
-            document.querySelector('.refresh-btn').innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>${texts.refreshBtn}`;
+            document.querySelector('.refresh-books-btn').innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0115.54-6.36L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 01-15.54 6.36L3 16"/></svg>`;
             document.querySelector('footer p').textContent = texts.footer;
             document.getElementById('postcardCloseBtn').textContent = texts.close;
             document.getElementById('postcardDownloadBtn').textContent = texts.download;
@@ -3881,7 +4202,8 @@
             
             // Show loading
             var loadingHtml = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
-            container.innerHTML = loadingHtml + container.querySelector('.load-more-container') ? container.querySelector('.load-more-container').outerHTML : '';
+            var loadMoreEl = container.querySelector('.load-more-container');
+            container.innerHTML = loadingHtml + (loadMoreEl ? loadMoreEl.outerHTML : '');
 
             setTimeout(function() {
                 try {
@@ -3959,7 +4281,8 @@
                     // Load more button
                     var loadMoreHtml = '';
                     if (allLoadedQuotes.length > totalLoadedCount) {
-                        loadMoreHtml = '<div class="load-more-container"><button class="load-more-btn" onclick="loadMoreQuotes()"><span class="load-more-text">Load more quotes</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></button></div>';
+                        var loadMoreTexts = uiTexts[currentLanguage] || uiTexts.en;
+                        loadMoreHtml = '<div class="load-more-container"><button class="load-more-btn" onclick="loadMoreQuotes()"><span class="load-more-text">' + loadMoreTexts.loadMore + '</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></button></div>';
                     }
 
                     container.innerHTML = introHTML + '<div class="quotes-grid">' + quotesHtml + '</div>' + loadMoreHtml;
@@ -4011,7 +4334,8 @@
             
             // Update or remove load more button
             if (allLoadedQuotes.length > totalLoadedCount) {
-                loadMoreContainer.innerHTML = '<button class="load-more-btn" onclick="loadMoreQuotes()"><span class="load-more-text">Load more quotes</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></button>';
+                var loadMoreT = (uiTexts[currentLanguage] || uiTexts.en).loadMore;
+                loadMoreContainer.innerHTML = '<button class="load-more-btn" onclick="loadMoreQuotes()"><span class="load-more-text">' + loadMoreT + '</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></button>';
             } else {
                 loadMoreContainer.style.display = 'none';
             }
@@ -4034,13 +4358,9 @@
             document.getElementById('postcardBook').textContent = bookTitle;
             document.getElementById('postcardAuthor').textContent = '— ' + quote.author;
 
-            const buttonTexts = {
-                cn: { close: '关闭', download: '下载' },
-                en: { close: 'Close', download: 'Download' },
-                fr: { close: 'Fermer', download: 'Télécharger' }
-            };
-            document.getElementById('postcardCloseBtn').textContent = buttonTexts[currentLanguage].close;
-            document.getElementById('postcardDownloadBtn').textContent = buttonTexts[currentLanguage].download;
+            var texts = uiTexts[currentLanguage] || uiTexts.en;
+            document.getElementById('postcardCloseBtn').textContent = texts.close;
+            document.getElementById('postcardDownloadBtn').textContent = texts.download;
             
             const postcard = document.getElementById('postcard');
             const colors = [
@@ -4068,7 +4388,126 @@
         }
 
         function downloadPostcard() {
-            alert('Save image feature coming soon!');
+            var postcard = document.getElementById('postcard');
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            var w = 1200, h = 800;
+            canvas.width = w;
+            canvas.height = h;
+
+            // Draw background gradient
+            var bgEl = postcard.querySelector('.postcard-bg');
+            var bgStyle = bgEl.style.background || 'linear-gradient(135deg, #667eea, #764ba2)';
+            var gradMatch = bgStyle.match(/linear-gradient\(([^)]+)\)/);
+            if (gradMatch) {
+                var grad = ctx.createLinearGradient(0, 0, w, h);
+                var colors = gradMatch[1].match(/#[0-9a-fA-F]{3,6}/g) || ['#667eea', '#764ba2'];
+                colors.forEach(function(c, i) {
+                    grad.addColorStop(i / (colors.length - 1), c);
+                });
+                ctx.fillStyle = grad;
+            } else {
+                ctx.fillStyle = bgStyle;
+            }
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw decorative circles
+            ctx.globalAlpha = 0.08;
+            ctx.fillStyle = 'white';
+            ctx.beginPath(); ctx.arc(w * 0.2, h * 0.8, 200, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(w * 0.8, h * 0.2, 200, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(w * 0.4, h * 0.4, 120, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(w * 0.6, h * 0.6, 120, 0, Math.PI * 2); ctx.fill();
+            ctx.globalAlpha = 1;
+
+            // Draw corner decorations
+            ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+            ctx.lineWidth = 2;
+            var cs = 50, cp = 25, cr = 8;
+            // Top-left
+            ctx.beginPath(); ctx.moveTo(cp, cp + cs); ctx.lineTo(cp, cp + cr); ctx.arcTo(cp, cp, cp + cr, cp, cr); ctx.lineTo(cp + cs, cp); ctx.stroke();
+            // Top-right
+            ctx.beginPath(); ctx.moveTo(w - cp - cs, cp); ctx.lineTo(w - cp - cr, cp); ctx.arcTo(w - cp, cp, w - cp, cp + cr, cr); ctx.lineTo(w - cp, cp + cs); ctx.stroke();
+            // Bottom-left
+            ctx.beginPath(); ctx.moveTo(cp, h - cp - cs); ctx.lineTo(cp, h - cp - cr); ctx.arcTo(cp, h - cp, cp + cr, h - cp, cr); ctx.lineTo(cp + cs, h - cp); ctx.stroke();
+            // Bottom-right
+            ctx.beginPath(); ctx.moveTo(w - cp - cs, h - cp); ctx.lineTo(w - cp - cr, h - cp); ctx.arcTo(w - cp, h - cp, w - cp, h - cp - cr, cr); ctx.lineTo(w - cp, h - cp - cs); ctx.stroke();
+
+            // Draw stamp
+            ctx.save();
+            ctx.translate(w - 80, 50);
+            ctx.rotate(15 * Math.PI / 180);
+            ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.roundRect(-25, -30, 50, 60, 5); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.font = '24px serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('✦', 0, 0);
+            ctx.restore();
+
+            // Draw quote text
+            var quoteText = document.getElementById('postcardQuote').textContent;
+            var bookText = document.getElementById('postcardBook').textContent;
+            var authorText = document.getElementById('postcardAuthor').textContent;
+
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            // Quote — wrap text
+            ctx.shadowColor = 'rgba(0,0,0,0.3)';
+            ctx.shadowBlur = 20;
+            ctx.shadowOffsetY = 4;
+            ctx.font = 'italic 36px "Playfair Display", serif';
+            wrapText(ctx, quoteText, w / 2, h / 2 - 30, w * 0.75, 52);
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetY = 0;
+
+            // Book title
+            ctx.font = '600 22px "Playfair Display", serif';
+            ctx.shadowColor = 'rgba(0,0,0,0.3)';
+            ctx.shadowBlur = 10;
+            ctx.fillText(bookText, w / 2, h - 80);
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+
+            // Author
+            ctx.globalAlpha = 0.85;
+            ctx.font = '18px "Merriweather", serif';
+            ctx.fillText(authorText, w / 2, h - 50);
+            ctx.globalAlpha = 1;
+
+            // Download
+            var link = document.createElement('a');
+            link.download = 'book-quote.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            var chars = text.split('');
+            var lines = [];
+            var currentLine = '';
+            for (var i = 0; i < chars.length; i++) {
+                var testLine = currentLine + chars[i];
+                var metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = chars[i];
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            lines.push(currentLine);
+            var totalHeight = lines.length * lineHeight;
+            var startY = y - totalHeight / 2 + lineHeight / 2;
+            lines.forEach(function(line, index) {
+                ctx.fillText(line, x, startY + index * lineHeight);
+            });
         }
 
         // Lane-based placement to avoid overlaps
