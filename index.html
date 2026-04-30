@@ -637,6 +637,31 @@
             transform: translateY(0);
         }
 
+        .quote-card.shimmer {
+            overflow: hidden;
+        }
+
+        .quote-card.shimmer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.15) 50%,
+                transparent 70%
+            );
+            background-size: 200% 200%;
+            background-position: -200% -200%;
+            opacity: 0;
+            animation: shimmer 1.2s ease-out 1 forwards;
+            pointer-events: none;
+            z-index: 2;
+        }
+
         .quote-card:hover {
             transform: translateY(-6px) scale(1.02);
         }
@@ -663,6 +688,13 @@
             line-height: 2;
             position: relative;
             letter-spacing: 0.3px;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .quote-text.fading {
+            opacity: 0;
+            transform: translateY(5px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
         .quote-text::before {
@@ -690,6 +722,7 @@
             align-items: center;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
+            transition: opacity 0.4s ease;
         }
 
         .quote-book {
@@ -845,6 +878,23 @@
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% -200%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                background-position: 200% 200%;
+                opacity: 0;
             }
         }
 
@@ -4014,6 +4064,58 @@
         }
 
         let starsInterval;
+
+        // Auto-rotate quote text
+        let autoRotateInterval;
+        let autoRotateTimeouts = [];
+
+        function startAutoRotate() {
+            stopAutoRotate();
+            autoRotateInterval = setInterval(function() {
+                var cards = document.querySelectorAll('.quote-card');
+                if (cards.length === 0) return;
+
+                var count = Math.min(4, cards.length);
+                var indices = [];
+                while (indices.length < count) {
+                    var idx = Math.floor(Math.random() * cards.length);
+                    if (indices.indexOf(idx) === -1) indices.push(idx);
+                }
+
+                indices.forEach(function(cardIdx) {
+                    var card = cards[cardIdx];
+                    var quoteEl = card.querySelector('.quote-text');
+                    var metaEl = card.querySelector('.quote-meta');
+                    if (!quoteEl) return;
+
+                    var bookKey = displayedQuotes[parseInt(card.getAttribute('onclick').match(/\d+/)[0])];
+                    if (!bookKey) return;
+                    var book = bookKey.book;
+                    var allQuotes = (quotesDB[book].quotes[currentLanguage] || quotesDB[book].quotes.en || []);
+                    if (allQuotes.length <= 1) return;
+                    var newQuote;
+                    do {
+                        newQuote = allQuotes[Math.floor(Math.random() * allQuotes.length)];
+                    } while (newQuote === quoteEl.textContent && allQuotes.length > 1);
+
+                    quoteEl.classList.add('fading');
+                    metaEl.style.opacity = '0';
+
+                    var t = setTimeout(function() {
+                        quoteEl.textContent = newQuote;
+                        quoteEl.classList.remove('fading');
+                        metaEl.style.opacity = '1';
+                    }, 1000);
+                    autoRotateTimeouts.push(t);
+                });
+            }, 15000);
+        }
+
+        function stopAutoRotate() {
+            if (autoRotateInterval) clearInterval(autoRotateInterval);
+            autoRotateTimeouts.forEach(function(t) { clearTimeout(t); });
+            autoRotateTimeouts = [];
+        }
         
         function createStar() {
             const starsContainer = document.getElementById('stars');
@@ -4294,8 +4396,18 @@
                             setTimeout(function() {
                                 card.style.opacity = '1';
                                 card.style.transform = 'translateY(0)';
+                                // Add shimmer after card appears
+                                setTimeout(function() {
+                                    card.classList.add('shimmer');
+                                }, i * 100 + 200);
+                                // Remove shimmer class after animation
+                                setTimeout(function() {
+                                    card.classList.remove('shimmer');
+                                }, i * 100 + 1500);
                             }, i * 100);
                         });
+                        // Start auto-rotate after all cards loaded
+                        startAutoRotate();
                     }, 100);
 
                 } catch (e) {
@@ -4326,6 +4438,12 @@
                 setTimeout(function() {
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
+                    setTimeout(function() {
+                        card.classList.add('shimmer');
+                    }, index * 150 + 200);
+                    setTimeout(function() {
+                        card.classList.remove('shimmer');
+                    }, index * 150 + 1500);
                 }, index * 150);
             });
             
